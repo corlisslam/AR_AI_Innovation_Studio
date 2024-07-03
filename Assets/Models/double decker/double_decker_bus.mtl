@@ -1,0 +1,42 @@
+# Blender 4.1.1 MTL File: 'double_decker_bus.blend'
+# www.blender.org
+
+newmtl BodyBus
+Ns 11.455134
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd BodyBus_baseColor.png
+
+newmtl Details
+Ns 11.455134
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Details_baseColor.png
+
+newmtl Wheels
+Ns 11.455134
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Wheels_baseColor.png
+
+newmtl Windows
+Ns 11.455134
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Windows_baseColor.png
