@@ -5,7 +5,7 @@ using UnityEngine.XR.ARFoundation;
 public class SetUpModels : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] prefabsToSpawn;
+    public GameObject[] prefabsToSpawn;
 
     private ARTrackedImageManager trackedImageManager;
 
