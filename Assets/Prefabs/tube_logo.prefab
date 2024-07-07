@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 888f3028acb7f476da9b2a48e60215ac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 888f3028acb7f476da9b2a48e60215ac,
         type: 3}
@@ -51,17 +51,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 888f3028acb7f476da9b2a48e60215ac,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 888f3028acb7f476da9b2a48e60215ac,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 888f3028acb7f476da9b2a48e60215ac,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 888f3028acb7f476da9b2a48e60215ac,
         type: 3}
@@ -81,5 +81,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 888f3028acb7f476da9b2a48e60215ac,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9186942338553703807}
   m_SourcePrefab: {fileID: 100100000, guid: 888f3028acb7f476da9b2a48e60215ac, type: 3}
+--- !u!1 &682462138436542374 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 888f3028acb7f476da9b2a48e60215ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 412640542340735735}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &9186942338553703807
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682462138436542374}
+  m_Material: {fileID: 13400000, guid: abec94af2a9b3439383aeae401d08ceb, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.5, y: 1.2, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}
