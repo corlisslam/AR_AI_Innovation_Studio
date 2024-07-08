@@ -1,4 +1,3 @@
-/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +23,7 @@ public class BusCollisionHandler : MonoBehaviour
 
         if (collision.gameObject.CompareTag("MainCamera")) // or is it .tag?
         {
-            Debug.Log("Bus collided with camera"); // just testing it out with bus right now, but should have a separate script called for every object
+            Debug.Log("Bus collided with camera, July 8"); // just testing it out with bus right now, but should have a separate script called for every object
         }
         else
         {
@@ -32,8 +31,9 @@ public class BusCollisionHandler : MonoBehaviour
         }
     }
 }
-*/
 
+
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,3 +67,5 @@ public class BusCollisionHandler : MonoBehaviour
         }
     }
 }
+
+*/
