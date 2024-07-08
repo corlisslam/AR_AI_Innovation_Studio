@@ -21,13 +21,13 @@ public class BusCollisionHandler : MonoBehaviour
     {
         Debug.Log("OnCollisionEnter called on " + gameObject.name);
 
-        if (collision.gameObject.CompareTag("MainCamera")) // or is it .tag?
+        if (collision.gameObject.CompareTag("EmptyParent")) // or is it .tag?
         {
-            Debug.Log("Bus collided with camera, July 8"); // just testing it out with bus right now, but should have a separate script called for every object
+            Debug.Log("Bus collided with empty parent, July 8"); // just testing it out with bus right now, but should have a separate script called for every object
         }
         else
         {
-            Debug.Log("Collision with non-camera object: " + collision.gameObject.name);
+            Debug.Log("Collision with non-empty parent object: " + collision.gameObject.name);
         }
     }
 }
