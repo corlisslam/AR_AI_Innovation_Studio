@@ -8,7 +8,7 @@ public class BusCollisionHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("CollisionHandler script started on " + gameObject.name);
+        //Debug.Log("CollisionHandler script started on " + gameObject.name);
     }
 
     // Update is called once per frame
@@ -17,19 +17,20 @@ public class BusCollisionHandler : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("OnCollisionEnter called on " + gameObject.name);
+    
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    Debug.Log("OnCollisionEnter called on " + gameObject.name);
 
-        if (collision.gameObject.CompareTag("EmptyParent")) // or is it .tag?
-        {
-            Debug.Log("Bus collided with empty parent, July 8"); // just testing it out with bus right now, but should have a separate script called for every object
-        }
-        else
-        {
-            Debug.Log("Collision with non-empty parent object: " + collision.gameObject.name);
-        }
-    }
+    //    if (collision.gameObject.CompareTag("MainCamera")) // or is it .tag?
+    //    {
+    //        Debug.Log("Bus collided with main camera, July 9"); // just testing it out with bus right now, but should have a separate script called for every object
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Collision with non-camera object: " + collision.gameObject.name);
+    //    }
+    //}
 }
 
 

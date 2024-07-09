@@ -6,6 +6,11 @@ TagManager:
   tags:
   - SpawnedPrefab
   - EmptyParent
+  - DoubleDeckerBus
+  - PhoneBooth
+  - TubeLogo
+  - BigBen
+  - Banksy
   layers:
   - Default
   - TransparentFX

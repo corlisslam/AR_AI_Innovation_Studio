@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 
 public class CameraRigFollower : MonoBehaviour
@@ -17,13 +18,14 @@ public class CameraRigFollower : MonoBehaviour
         }
 
         rb = GetComponent<Rigidbody>();
-        /*
+   
         if (rb == null)
         {
             rb = gameObject.AddComponent<Rigidbody>();
             rb.useGravity = false; // Disable gravity if not needed
         }
-        */
+
+        
 
         // Calculate the initial offset between the parent and the AR camera
         //offset = transform.position - arCamera.position;
@@ -34,9 +36,11 @@ public class CameraRigFollower : MonoBehaviour
         // Sync the parent GameObject's position and rotation with the AR camera
         rb.MovePosition(arCamera.transform.position);
         rb.MoveRotation(arCamera.transform.rotation);
-        //Debug.Log($"CameraRigParent Position: {transform.position}, Rotation: {transform.rotation.eulerAngles}");
-        //Debug.Log($"AR Camera Position: {arCamera.transform.position}, Rotation: {arCamera.transform.rotation.eulerAngles}");
+        Debug.Log($"CameraRigParent Position: {transform.position}, Rotation: {transform.rotation.eulerAngles}");
+        Debug.Log($"AR Camera Position: {arCamera.transform.position}, Rotation: {arCamera.transform.rotation.eulerAngles}");
         //Debug.Log("Main camera moved so parent empty object moved");
     }
 
 }
+*/
+
