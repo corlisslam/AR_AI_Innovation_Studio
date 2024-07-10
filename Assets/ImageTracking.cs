@@ -1,3 +1,4 @@
+//Code for TAP TO PLACE (WITHOUT PLANE DETECTION):
 //using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,21 +6,21 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
-[RequireComponent(requiredComponent: typeof(ARRaycastManager),
-    typeof(ARPlaneManager))] // Will not let you delete those components if this script is attached to game object
+[RequireComponent(requiredComponent: typeof(ARRaycastManager))] // Will not let you delete those components if this script is attached to game object
 public class PlaceObject : MonoBehaviour
 {
     [SerializeField]
     private GameObject prefab;
 
     private ARRaycastManager aRRaycastManager;
-    private ARPlaneManager aRPlaneManager;
+    //private ARPlaneManager aRPlaneManager;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    private GameObject spawnedObject;
 
     private void Awake()
     {
         aRRaycastManager = GetComponent<ARRaycastManager>();
-        aRPlaneManager = GetComponent<ARPlaneManager>();
+        //aRPlaneManager = GetComponent<ARPlaneManager>();
     }
 
     private void OnEnable()
@@ -46,11 +47,18 @@ public class PlaceObject : MonoBehaviour
     {
         if (finger.index != 0) return;
 
-        if (aRRaycastManager.Raycast(finger.currentTouch.screenPosition, hits, TrackableType.PlaneWithinPolygon))
+        if (aRRaycastManager.Raycast(finger.currentTouch.screenPosition, hits, TrackableType.FeaturePoint))
         {
             Pose hitPose = hits[0].pose;
-            GameObject obj = Instantiate(prefab, hitPose.position, hitPose.rotation);
-            Debug.Log("Instantiated object scale: " + obj.transform.localScale);
+            if (spawnedObject != null)
+            {
+                Destroy(spawnedObject);
+                Debug.Log("Previously placed object removed from screen");
+            }
+            spawnedObject = Instantiate(prefab, hitPose.position, hitPose.rotation);
+            spawnedObject.transform.localPosition += prefab.transform.localPosition;
+            Debug.Log("hitPose is at: " + hitPose.position);
+            Debug.Log("Instantiated object scale: " + spawnedObject.transform.position);
         }
     }
 }
@@ -107,7 +115,7 @@ public class PlaceObject : MonoBehaviour
 //                        Debug.Log("Object instantiated at " + hitPose.position);
 //                        //objectPlaced = true;
 //                    }
-                    
+
 //                    else
 //                    {
 //                        spawnedObject.transform.position = hitPose.position;
@@ -119,7 +127,7 @@ public class PlaceObject : MonoBehaviour
 //                    //audioSource.Play();
 
 //                    // Set the flag to true to prevent further placement
-                    
+
 //                }
 //            }
 //        }

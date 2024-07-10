@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6796007311341076908
+--- !u!1001 &327956370256764819
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 90536c32a29b54eb4a1769631d2fa6eb,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.05
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90536c32a29b54eb4a1769631d2fa6eb,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.05
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90536c32a29b54eb4a1769631d2fa6eb,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.05
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90536c32a29b54eb4a1769631d2fa6eb,
         type: 3}
@@ -76,78 +76,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 90536c32a29b54eb4a1769631d2fa6eb,
         type: 3}
       propertyPath: m_Name
-      value: avatar
+      value: avatar_without_mesh
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 90536c32a29b54eb4a1769631d2fa6eb,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5188925073579860950}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 90536c32a29b54eb4a1769631d2fa6eb,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -1523565332097285201}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90536c32a29b54eb4a1769631d2fa6eb, type: 3}
---- !u!1 &5949586565272206589 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 90536c32a29b54eb4a1769631d2fa6eb,
-    type: 3}
-  m_PrefabInstance: {fileID: 6796007311341076908}
-  m_PrefabAsset: {fileID: 0}
---- !u!33 &5188925073579860950
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5949586565272206589}
-  m_Mesh: {fileID: -2432090755550338912, guid: 90536c32a29b54eb4a1769631d2fa6eb, type: 3}
---- !u!23 &-1523565332097285201
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5949586565272206589}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 4362962105363994262, guid: 90536c32a29b54eb4a1769631d2fa6eb, type: 3}
-  - {fileID: 4362962105363994262, guid: 90536c32a29b54eb4a1769631d2fa6eb, type: 3}
-  - {fileID: -7369353043606826722, guid: 90536c32a29b54eb4a1769631d2fa6eb, type: 3}
-  - {fileID: 7922251121040759823, guid: 90536c32a29b54eb4a1769631d2fa6eb, type: 3}
-  - {fileID: -5354028657143720620, guid: 90536c32a29b54eb4a1769631d2fa6eb, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}

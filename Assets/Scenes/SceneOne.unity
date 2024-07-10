@@ -193,7 +193,7 @@ PrefabInstance:
     - target: {fileID: 2512387470528047737, guid: e40884a1f504b4ec8892bfb6ea39a59a,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2512387470528047737, guid: e40884a1f504b4ec8892bfb6ea39a59a,
         type: 3}
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd32d312c0724409986b06d67eef7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5949586565272206589, guid: 81e0633b78140460793449dfc9fbbb1e, type: 3}
+  prefab: {fileID: 597935610844816066, guid: 8e21f490feb3a44e2812364adef14ad9, type: 3}
 --- !u!114 &106533405
 MonoBehaviour:
   m_ObjectHideFlags: 0
