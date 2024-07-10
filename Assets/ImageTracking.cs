@@ -1,74 +1,130 @@
+//using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
-// currently this script detects in a loop if there is an object placed in scene and if there is not, it would place the object at the first touch's position 
+[RequireComponent(requiredComponent: typeof(ARRaycastManager),
+    typeof(ARPlaneManager))] // Will not let you delete those components if this script is attached to game object
 public class PlaceObject : MonoBehaviour
 {
-    public GameObject objectToPlace;
-    //public AudioClip placementAudio;
+    [SerializeField]
+    private GameObject prefab;
 
-    private GameObject spawnedObject;
-    //private ARTrackedImageManager arTrackedImageManager;
-    private ARRaycastManager arRaycastManager;
+    private ARRaycastManager aRRaycastManager;
+    private ARPlaneManager aRPlaneManager;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
-    //private AudioSource audioSource;
-    private bool objectPlaced = false;
 
-    void Awake()
+    private void Awake()
     {
-        //arTrackedImageManager = GetComponent<ARTrackedImageManager>();
-        arRaycastManager = GetComponent<ARRaycastManager>();
-        //audioSource = gameObject.AddComponent<AudioSource>();
-        //audioSource.clip = placementAudio;
+        aRRaycastManager = GetComponent<ARRaycastManager>();
+        aRPlaneManager = GetComponent<ARPlaneManager>();
     }
 
-    void Update()
+    private void OnEnable()
     {
-        // Does not go further down this method if there is already an object placed
-        // if (objectPlaced) return;
+        // Enables simulation on editor
+        EnhancedTouch.TouchSimulation.Enable();
+        // Enables enhanced touch
+        EnhancedTouch.EnhancedTouchSupport.Enable();
+        // Touch on screen, cast raycast to that touch location
+        EnhancedTouch.Touch.onFingerDown += FingerDown;
+    }
 
-        if (Input.touchCount > 0) //user is currently touching screen if touchCount is more than 0
+    private void OnDisable()
+    {
+        // Enables simulation on editor
+        EnhancedTouch.TouchSimulation.Disable();
+        // Enables enhanced touch
+        EnhancedTouch.EnhancedTouchSupport.Disable();
+        // Unsubscribing from event
+        EnhancedTouch.Touch.onFingerDown -= FingerDown;
+    }
+
+    private void FingerDown(EnhancedTouch.Finger finger)
+    {
+        if (finger.index != 0) return;
+
+        if (aRRaycastManager.Raycast(finger.currentTouch.screenPosition, hits, TrackableType.PlaneWithinPolygon))
         {
-            //Get the first touch
-            Touch touch = Input.GetTouch(0);
-
-            //Check if touch has just begun
-            if (touch.phase == TouchPhase.Began)
-            {
-                // Perform the raycast to direct where the touch hit in the AR space, hits is a list
-                // When a raycast is performed, the ray may intersect multiple surfaces
-                if (arRaycastManager.Raycast(touch.position, hits, TrackableType.PlaneWithinPolygon))
-                {
-                    // Get the hit result
-                    Pose hitPose = hits[0].pose;
-
-                    if (spawnedObject == null)
-                    {
-                        // Instantiate the object at the hit position
-                        spawnedObject = Instantiate(objectToPlace, hitPose.position, hitPose.rotation);
-                        Debug.Log("Object instantiated at " + hitPose.position);
-                        objectPlaced = true;
-                    }
-                    
-                    else
-                    {
-                        spawnedObject.transform.position = hitPose.position;
-                        spawnedObject.transform.rotation = hitPose.rotation;
-                        Debug.Log("Object moved to " + hitPose.position);
-                    }
-
-                    // Play the placement audio
-                    //audioSource.Play();
-
-                    // Set the flag to true to prevent further placement
-                    
-                }
-            }
+            Pose hitPose = hits[0].pose;
+            GameObject obj = Instantiate(prefab, hitPose.position, hitPose.rotation);
+            Debug.Log("Instantiated object scale: " + obj.transform.localScale);
         }
     }
 }
+
+
+// currently this script detects in a loop if there is an object placed in scene and if there is not, it would place the object at the first touch's position 
+//[RequireComponent(typeof(ARRaycastManager))]
+//public class PlaceObject : MonoBehaviour
+//{
+//    public GameObject objectToPlace;
+//    //public AudioClip placementAudio;
+
+//    private GameObject spawnedObject;
+//    //private ARTrackedImageManager arTrackedImageManager;
+//    private ARRaycastManager arRaycastManager;
+//    //private ARPlaneManager arPlaneManager;
+//    private List<ARRaycastHit> hits = new List<ARRaycastHit>();
+//    //private AudioSource audioSource;
+//    //private bool objectPlaced = false;
+
+//    void Awake()
+//    {
+//        //arTrackedImageManager = GetComponent<ARTrackedImageManager>();
+//        arRaycastManager = GetComponent<ARRaycastManager>();
+//        //arPlaneManager = GetComponent<ARPlaneManager>();
+//        //audioSource = gameObject.AddComponent<AudioSource>();
+//        //audioSource.clip = placementAudio;
+//    }
+
+//    void Update()
+//    {
+//        // Does not go further down this method if there is already an object placed
+//        // if (objectPlaced) return;
+
+//        if (Input.touchCount > 0) //user is currently touching screen if touchCount is more than 0
+//        {
+//            //Get the first touch
+//            Touch touch = Input.GetTouch(0);
+
+//            //Check if touch has just begun
+//            if (touch.phase == TouchPhase.Began)
+//            {
+//                // Perform the raycast to direct where the touch hit in the AR space, hits is a list
+//                // When a raycast is performed, the ray may intersect multiple surfaces
+//                if (arRaycastManager.Raycast(touch.position, hits, TrackableType.PlaneWithinPolygon))
+//                {
+//                    // Get the hit result
+//                    Pose hitPose = hits[0].pose;
+
+//                    if (spawnedObject == null)
+//                    {
+//                        // Instantiate the object at the hit position
+//                        spawnedObject = Instantiate(objectToPlace, hitPose.position, hitPose.rotation);
+//                        Debug.Log("Object instantiated at " + hitPose.position);
+//                        //objectPlaced = true;
+//                    }
+                    
+//                    else
+//                    {
+//                        spawnedObject.transform.position = hitPose.position;
+//                        spawnedObject.transform.rotation = hitPose.rotation;
+//                        Debug.Log("Object moved to  " + hitPose.position);
+//                    }
+
+//                    // Play the placement audio
+//                    //audioSource.Play();
+
+//                    // Set the flag to true to prevent further placement
+                    
+//                }
+//            }
+//        }
+//    }
+//}
 
 //public class SetUpModels : MonoBehaviour
 //{
