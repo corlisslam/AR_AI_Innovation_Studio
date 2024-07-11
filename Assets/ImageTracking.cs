@@ -1,4 +1,4 @@
-//Code for TAP TO PLACE (WITHOUT PLANE DETECTION):
+//Code for TAP TO PLACE (WITH SCREENTOWORLDPOINT)
 //using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,27 +6,26 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
-[RequireComponent(requiredComponent: typeof(ARRaycastManager))] // Will not let you delete those components if this script is attached to game object
 public class PlaceObject : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject prefab;
+    public GameObject prefab;
 
-    private ARRaycastManager aRRaycastManager;
-    //private ARPlaneManager aRPlaneManager;
-    private List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    public Camera arCamera;
+
+    private float depth = 1.0f;
+
     private GameObject spawnedObject;
 
     private void Awake()
     {
-        aRRaycastManager = GetComponent<ARRaycastManager>();
+        //aRRaycastManager = GetComponent<ARRaycastManager>();
         //aRPlaneManager = GetComponent<ARPlaneManager>();
     }
 
     private void OnEnable()
     {
         // Enables simulation on editor
-        EnhancedTouch.TouchSimulation.Enable();
+        //EnhancedTouch.TouchSimulation.Enable();
         // Enables enhanced touch
         EnhancedTouch.EnhancedTouchSupport.Enable();
         // Touch on screen, cast raycast to that touch location
@@ -36,7 +35,7 @@ public class PlaceObject : MonoBehaviour
     private void OnDisable()
     {
         // Enables simulation on editor
-        EnhancedTouch.TouchSimulation.Disable();
+        //EnhancedTouch.TouchSimulation.Disable();
         // Enables enhanced touch
         EnhancedTouch.EnhancedTouchSupport.Disable();
         // Unsubscribing from event
@@ -47,21 +46,85 @@ public class PlaceObject : MonoBehaviour
     {
         if (finger.index != 0) return;
 
-        if (aRRaycastManager.Raycast(finger.currentTouch.screenPosition, hits, TrackableType.FeaturePoint))
+        if (spawnedObject != null)
         {
-            Pose hitPose = hits[0].pose;
-            if (spawnedObject != null)
-            {
-                Destroy(spawnedObject);
-                Debug.Log("Previously placed object removed from screen");
-            }
-            spawnedObject = Instantiate(prefab, hitPose.position, hitPose.rotation);
-            spawnedObject.transform.localPosition += prefab.transform.localPosition;
-            Debug.Log("hitPose is at: " + hitPose.position);
-            Debug.Log("Instantiated object scale: " + spawnedObject.transform.position);
+            Destroy(spawnedObject);
+            Debug.Log("Previously placed object removed from screen");
+
         }
+        Vector3 screenPosition = finger.currentTouch.screenPosition;
+        Debug.Log("Screen touch position is at: " + screenPosition.x + ", " + screenPosition.y);
+        Vector3 worldPosition = arCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, depth));
+        spawnedObject = Instantiate(prefab, worldPosition, Quaternion.identity);
+        Debug.Log("Instantiated object scale: " + spawnedObject.transform.position);
+        
     }
 }
+
+////Code for TAP TO PLACE (WITHOUT PLANE DETECTION):
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.XR.ARFoundation;
+//using UnityEngine.XR.ARSubsystems;
+//using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
+
+//[RequireComponent(requiredComponent: typeof(ARRaycastManager))] // Will not let you delete those components if this script is attached to game object
+//public class PlaceObject : MonoBehaviour
+//{
+//    [SerializeField]
+//    private GameObject prefab;
+
+//    private ARRaycastManager aRRaycastManager;
+//    //private ARPlaneManager aRPlaneManager;
+//    private List<ARRaycastHit> hits = new List<ARRaycastHit>();
+//    private GameObject spawnedObject;
+
+//    private void Awake()
+//    {
+//        aRRaycastManager = GetComponent<ARRaycastManager>();
+//        //aRPlaneManager = GetComponent<ARPlaneManager>();
+//    }
+
+//    private void OnEnable()
+//    {
+//        // Enables simulation on editor
+//        //EnhancedTouch.TouchSimulation.Enable();
+//        // Enables enhanced touch
+//        EnhancedTouch.EnhancedTouchSupport.Enable();
+//        // Touch on screen, cast raycast to that touch location
+//        EnhancedTouch.Touch.onFingerDown += FingerDown;
+//    }
+
+//    private void OnDisable()
+//    {
+//        // Enables simulation on editor
+//        //EnhancedTouch.TouchSimulation.Disable();
+//        // Enables enhanced touch
+//        EnhancedTouch.EnhancedTouchSupport.Disable();
+//        // Unsubscribing from event
+//        EnhancedTouch.Touch.onFingerDown -= FingerDown;
+//    }
+
+//    private void FingerDown(EnhancedTouch.Finger finger)
+//    {
+//        if (finger.index != 0) return;
+
+//        if (aRRaycastManager.Raycast(finger.currentTouch.screenPosition, hits, TrackableType.FeaturePoint))
+//        {
+//            Pose hitPose = hits[0].pose;
+//            if (spawnedObject != null)
+//            {
+//                Destroy(spawnedObject);
+//                Debug.Log("Previously placed object removed from screen");
+//            }
+//            spawnedObject = Instantiate(prefab, hitPose.position, hitPose.rotation);
+//            spawnedObject.transform.localPosition += prefab.transform.localPosition;
+//            Debug.Log("hitPose is at: " + hitPose.position);
+//            Debug.Log("Instantiated object scale: " + spawnedObject.transform.position);
+//        }
+//    }
+//}
 
 
 // currently this script detects in a loop if there is an object placed in scene and if there is not, it would place the object at the first touch's position 
@@ -134,10 +197,15 @@ public class PlaceObject : MonoBehaviour
 //    }
 //}
 
-//public class SetUpModels : MonoBehaviour
+////CODE FOR INSTANTIATING WHEWN TRACKED IMAGE DETECTED
+////using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.XR.ARFoundation;
+//public class PlaceObject : MonoBehaviour
 //{
 //    [SerializeField]
-//    public GameObject[] prefabsToSpawn;
+//    private GameObject[] prefab;
 
 //    private ARTrackedImageManager trackedImageManager;
 //    private Camera arCamera;
@@ -169,24 +237,36 @@ public class PlaceObject : MonoBehaviour
 //        foreach (ARTrackedImage trackedImage in eventArgs.added)
 //        {
 //            Debug.Log("Tracked image added: " + trackedImage.referenceImage.name);
-//            SpawnPrefabs(trackedImage);
+//            SpawnPrefab(trackedImage);
 //        }
 //    }
 
-//    private void SpawnPrefabs(ARTrackedImage trackedImage)
+//    private void SpawnPrefab(ARTrackedImage trackedImage)
 //    {
 //        if (instantiatedPrefabs.ContainsKey(trackedImage.referenceImage.name))
 //        {
-//            return; // Prefabs already spawned for this image
+//            return; // Prefab already spawned for this image
 //        }
 
-//        foreach (GameObject prefab in prefabsToSpawn)
+//        foreach (GameObject prefab in prefab)
 //        {
 //            //Vector3 position = trackedImage.transform.position;
 //            //Quaternion rotation = trackedImage.transform.rotation;
 //            Debug.Log("Spawning prefab for tracked image: " + trackedImage.referenceImage.name);
 
 //            GameObject instantiatedPrefab = Instantiate(prefab);
+
+//            // Debugging parent information
+//            if (instantiatedPrefab.transform.parent != null)
+//            {
+//                Debug.Log("Parent of instantiated prefab: " + instantiatedPrefab.transform.parent.name);
+//            }
+//            else
+//            {
+//                Debug.Log("Instantiated prefab has no parent");
+//            }
+
+//            // Ensures it is in world space
 //            //instantiatedPrefab.transform.SetParent(null, true);
 
 //            instantiatedPrefabs[trackedImage.referenceImage.name] = instantiatedPrefab;
