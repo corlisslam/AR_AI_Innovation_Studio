@@ -1,65 +1,93 @@
-//Code for TAP TO PLACE (WITH SCREENTOWORLDPOINT)
-//using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
-using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
+////Code for TAP TO PLACE (WITH SCREENTOWORLDPOINT)
+////using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.XR.ARFoundation;
+//using UnityEngine.XR.ARSubsystems;
+//using EnhancedTouch = UnityEngine.InputSystem.EnhancedTouch;
 
-public class PlaceObject : MonoBehaviour
-{
-    public GameObject prefab;
+////[RequireComponent(typeof(AudioSource))]
+//public class PlaceObject : MonoBehaviour
+//{
+//    [SerializeField]
+//    private GameObject prefab;
 
-    public Camera arCamera;
 
-    private float depth = 1.0f;
+//    private AudioSource audioClip1;
 
-    private GameObject spawnedObject;
+//    public Camera arCamera;
 
-    private void Awake()
-    {
-        //aRRaycastManager = GetComponent<ARRaycastManager>();
-        //aRPlaneManager = GetComponent<ARPlaneManager>();
-    }
+//    private float depth = 1.0f;
 
-    private void OnEnable()
-    {
-        // Enables simulation on editor
-        //EnhancedTouch.TouchSimulation.Enable();
-        // Enables enhanced touch
-        EnhancedTouch.EnhancedTouchSupport.Enable();
-        // Touch on screen, cast raycast to that touch location
-        EnhancedTouch.Touch.onFingerDown += FingerDown;
-    }
+//    private GameObject spawnedObject;
 
-    private void OnDisable()
-    {
-        // Enables simulation on editor
-        //EnhancedTouch.TouchSimulation.Disable();
-        // Enables enhanced touch
-        EnhancedTouch.EnhancedTouchSupport.Disable();
-        // Unsubscribing from event
-        EnhancedTouch.Touch.onFingerDown -= FingerDown;
-    }
 
-    private void FingerDown(EnhancedTouch.Finger finger)
-    {
-        if (finger.index != 0) return;
+//    private void Awake()
+//    {
+//        audioClip1 = GetComponent<AudioSource>();
+//        //aRRaycastManager = GetComponent<ARRaycastManager>();
+//        //aRPlaneManager = GetComponent<ARPlaneManager>();
+//        if (audioClip1 == null)
+//        {
+//            Debug.LogError("AudioSource is not in the same Game Object.");
+//            //Debug.LogError("AudioSource is not assigned in the Inspector.");
+//        }
 
-        if (spawnedObject != null)
-        {
-            Destroy(spawnedObject);
-            Debug.Log("Previously placed object removed from screen");
+//        else
+//        {
+//            Debug.Log("AudioSource is assigned in Inspector.");
+//        }
+//    }
 
-        }
-        Vector3 screenPosition = finger.currentTouch.screenPosition;
-        Debug.Log("Screen touch position is at: " + screenPosition.x + ", " + screenPosition.y);
-        Vector3 worldPosition = arCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, depth));
-        spawnedObject = Instantiate(prefab, worldPosition, Quaternion.identity);
-        Debug.Log("Instantiated object scale: " + spawnedObject.transform.position);
-        
-    }
-}
+//    private void OnEnable()
+//    {
+//        // Enables simulation on editor
+//        EnhancedTouch.TouchSimulation.Enable();
+//        // Enables enhanced touch
+//        EnhancedTouch.EnhancedTouchSupport.Enable();
+//        // Touch on screen, cast raycast to that touch location
+//        EnhancedTouch.Touch.onFingerDown += FingerDown;
+//    }
+
+//    private void OnDisable()
+//    {
+//        // Enables simulation on editor
+//        EnhancedTouch.TouchSimulation.Disable();
+//        // Enables enhanced touch
+//        EnhancedTouch.EnhancedTouchSupport.Disable();
+//        // Unsubscribing from event
+//        EnhancedTouch.Touch.onFingerDown -= FingerDown;
+//    }
+
+//    private void FingerDown(EnhancedTouch.Finger finger)
+//    {
+//        if (finger.index != 0) return;
+
+//        if (spawnedObject != null)
+//        {
+//            audioClip1.Stop();
+//            Destroy(spawnedObject);
+//            Debug.Log("Previously placed object removed from screen");
+
+//        }
+//        Vector3 screenPosition = finger.currentTouch.screenPosition;
+//        Debug.Log("Screen touch position is at: " + screenPosition.x + ", " + screenPosition.y);
+//        Vector3 worldPosition = arCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, depth));
+//        spawnedObject = Instantiate(prefab, worldPosition, Quaternion.identity);
+//        Debug.Log("Instantiated object position: " + spawnedObject.transform.position);
+
+//        if (audioClip1 != null)
+//        {
+//            audioClip1.Play(0);
+//            Debug.Log("Audio playing? "+ audioClip1.isPlaying);
+//        }
+//        else
+//        {
+//            Debug.LogError("AudioSource is not assigned or is missing.");
+//        }
+
+//    }
+//}
 
 ////Code for TAP TO PLACE (WITHOUT PLANE DETECTION):
 //using System.Collections;
@@ -197,79 +225,104 @@ public class PlaceObject : MonoBehaviour
 //    }
 //}
 
-////CODE FOR INSTANTIATING WHEWN TRACKED IMAGE DETECTED
-////using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.XR.ARFoundation;
-//public class PlaceObject : MonoBehaviour
-//{
-//    [SerializeField]
-//    private GameObject[] prefab;
+//CODE FOR INSTANTIATING WHEN TRACKED IMAGE DETECTED
+//using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.XR.ARFoundation;
+public class PlaceObject : MonoBehaviour
+{
+    [SerializeField]
+    private GameObject[] prefab;
 
-//    private ARTrackedImageManager trackedImageManager;
-//    private Camera arCamera;
+    private AudioSource audioClip1;
 
-//    private Dictionary<string, GameObject> instantiatedPrefabs = new Dictionary<string, GameObject>();
+    private ARTrackedImageManager trackedImageManager;
+    private Camera arCamera;
 
-//    private void Awake()
-//    {
-//        trackedImageManager = GetComponent<ARTrackedImageManager>();
-//        arCamera = Camera.main;
-//        if (arCamera == null)
-//        {
-//            Debug.LogError("AR Camera not found. Make sure the Main Camera is tagged as MainCamera.");
-//        }
-//    }
+    private Dictionary<string, GameObject> instantiatedPrefabs = new Dictionary<string, GameObject>();
 
-//    private void OnEnable()
-//    {
-//        trackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
-//    }
+    private void Awake()
+    {
+        audioClip1 = GetComponent<AudioSource>();
+        trackedImageManager = GetComponent<ARTrackedImageManager>();
+        arCamera = Camera.main;
+        if (arCamera == null)
+        {
+            Debug.LogError("AR Camera not found. Make sure the Main Camera is tagged as MainCamera.");
+        }
 
-//    private void OnDisable()
-//    {
-//        trackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
-//    }
+        if (audioClip1 == null)
+        {
+            Debug.LogError("AudioSource is not in the same Game Object.");
+            //Debug.LogError("AudioSource is not assigned in the Inspector.");
+        }
 
-//    private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
-//    {
-//        foreach (ARTrackedImage trackedImage in eventArgs.added)
-//        {
-//            Debug.Log("Tracked image added: " + trackedImage.referenceImage.name);
-//            SpawnPrefab(trackedImage);
-//        }
-//    }
+        else
+        {
+            Debug.Log("AudioSource is assigned in Inspector.");
+        }
 
-//    private void SpawnPrefab(ARTrackedImage trackedImage)
-//    {
-//        if (instantiatedPrefabs.ContainsKey(trackedImage.referenceImage.name))
-//        {
-//            return; // Prefab already spawned for this image
-//        }
+    }
 
-//        foreach (GameObject prefab in prefab)
-//        {
-//            //Vector3 position = trackedImage.transform.position;
-//            //Quaternion rotation = trackedImage.transform.rotation;
-//            Debug.Log("Spawning prefab for tracked image: " + trackedImage.referenceImage.name);
+    private void OnEnable()
+    {
+        trackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
+    }
 
-//            GameObject instantiatedPrefab = Instantiate(prefab);
+    private void OnDisable()
+    {
+        trackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
+    }
 
-//            // Debugging parent information
-//            if (instantiatedPrefab.transform.parent != null)
-//            {
-//                Debug.Log("Parent of instantiated prefab: " + instantiatedPrefab.transform.parent.name);
-//            }
-//            else
-//            {
-//                Debug.Log("Instantiated prefab has no parent");
-//            }
+    private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
+    {
+        foreach (ARTrackedImage trackedImage in eventArgs.added)
+        {
+            Debug.Log("Tracked image added: " + trackedImage.referenceImage.name);
+            SpawnPrefab(trackedImage);
+        }
+    }
 
-//            // Ensures it is in world space
-//            //instantiatedPrefab.transform.SetParent(null, true);
+    private void SpawnPrefab(ARTrackedImage trackedImage)
+    {
+        if (instantiatedPrefabs.ContainsKey(trackedImage.referenceImage.name))
+        {
+            return; // Prefab already spawned for this image
+        }
 
-//            instantiatedPrefabs[trackedImage.referenceImage.name] = instantiatedPrefab;
-//        }
-//    }
-//}
+        foreach (GameObject prefab in prefab)
+        {
+            //Vector3 position = trackedImage.transform.position;
+            //Quaternion rotation = trackedImage.transform.rotation;
+            Debug.Log("Spawning prefab for tracked image: " + trackedImage.referenceImage.name);
+
+            GameObject instantiatedPrefab = Instantiate(prefab);
+
+            // Ensures it is in world space
+            instantiatedPrefab.transform.SetParent(null, true);
+
+            // Debugging parent information
+            if (instantiatedPrefab.transform.parent != null)
+            {
+                Debug.Log("Parent of instantiated prefab: " + instantiatedPrefab.transform.parent.name);
+            }
+            else
+            {
+                Debug.Log("Instantiated prefab has no parent");
+            }
+
+            instantiatedPrefabs[trackedImage.referenceImage.name] = instantiatedPrefab;
+
+            if (audioClip1 != null)
+            {
+                audioClip1.Play(0);
+                Debug.Log("Audio playing? " + audioClip1.isPlaying);
+            }
+            else
+            {
+                Debug.LogError("AudioSource is not assigned or is missing.");
+            }
+        }
+    }
+}
