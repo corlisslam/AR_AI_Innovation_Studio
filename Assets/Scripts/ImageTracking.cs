@@ -230,38 +230,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.UI;
+
 public class PlaceObject : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] prefab;
+    private GameObject[] prefab; //Allow for possibility of instantiating more than one prefab in the future
 
-    private AudioSource audioClip1;
+    public GameObject audioOneGameObjectPrefab;
 
     private ARTrackedImageManager trackedImageManager;
     private Camera arCamera;
 
     private Dictionary<string, GameObject> instantiatedPrefabs = new Dictionary<string, GameObject>();
 
+    private GameObject instantiatedAudioOneGameObject;
+ 
+
     private void Awake()
     {
-        audioClip1 = GetComponent<AudioSource>();
+
+        if (audioOneGameObjectPrefab != null)
+        {
+            instantiatedAudioOneGameObject = Instantiate(audioOneGameObjectPrefab);
+        }
+        else
+        {
+            Debug.LogError("audioOneGameObjectPrefab is not assigned.");
+        }
+
         trackedImageManager = GetComponent<ARTrackedImageManager>();
         arCamera = Camera.main;
+
         if (arCamera == null)
         {
             Debug.LogError("AR Camera not found. Make sure the Main Camera is tagged as MainCamera.");
         }
 
-        if (audioClip1 == null)
-        {
-            Debug.LogError("AudioSource is not in the same Game Object.");
-            //Debug.LogError("AudioSource is not assigned in the Inspector.");
-        }
+        //if (audioClip1 == null)
+        //{
+        //    Debug.LogError("AudioSource is not in the same Game Object.");
+        //    //Debug.LogError("AudioSource is not assigned in the Inspector.");
+        //}
 
-        else
-        {
-            Debug.Log("AudioSource is assigned in Inspector.");
-        }
+        //else
+        //{
+        //    Debug.Log("AudioSource is assigned in Inspector.");
+        //}
 
     }
 
@@ -298,31 +313,46 @@ public class PlaceObject : MonoBehaviour
             Debug.Log("Spawning prefab for tracked image: " + trackedImage.referenceImage.name);
 
             GameObject instantiatedPrefab = Instantiate(prefab);
+            if (instantiatedPrefab != null)
+            {
+                Debug.Log("Avatar " + instantiatedPrefab.name + " instantiated");
+            }
+            else
+            {
+                Debug.Log("Prefab not instantiated");
+            }
 
             // Ensures it is in world space
             instantiatedPrefab.transform.SetParent(null, true);
 
             // Debugging parent information
-            if (instantiatedPrefab.transform.parent != null)
-            {
-                Debug.Log("Parent of instantiated prefab: " + instantiatedPrefab.transform.parent.name);
-            }
-            else
-            {
-                Debug.Log("Instantiated prefab has no parent");
-            }
+            //if (instantiatedPrefab.transform.parent != null)
+            //{
+            //    Debug.Log("Parent of instantiated prefab: " + instantiatedPrefab.transform.parent.name);
+            //}
+            //else
+            //{
+            //    Debug.Log("Instantiated prefab has no parent");
+            //}
 
             instantiatedPrefabs[trackedImage.referenceImage.name] = instantiatedPrefab;
 
-            if (audioClip1 != null)
-            {
-                audioClip1.Play(0);
-                Debug.Log("Audio playing? " + audioClip1.isPlaying);
-            }
-            else
-            {
-                Debug.LogError("AudioSource is not assigned or is missing.");
-            }
+            CallAudioOne();
         }
+    }
+
+    private void CallAudioOne()
+    {
+        AudioOne audioOneScript = instantiatedAudioOneGameObject.GetComponent<AudioOne>();
+       
+        if (audioOneScript != null)
+        {
+                audioOneScript.SetUIButtons();
+         }
+        else
+        {
+            Debug.LogError("AudioOne script not found on instantiated AudioOne GameObject.");
+        }
+
     }
 }
