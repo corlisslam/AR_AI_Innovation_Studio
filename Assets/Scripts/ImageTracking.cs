@@ -347,7 +347,7 @@ public class PlaceObject : MonoBehaviour
        
         if (audioOneScript != null)
         {
-                audioOneScript.SetUIButtons();
+                audioOneScript.StartAudioOne();
          }
         else
         {

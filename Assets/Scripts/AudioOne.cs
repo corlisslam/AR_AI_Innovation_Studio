@@ -15,6 +15,9 @@ public class AudioOne : MonoBehaviour
     private Button replayButton;
     private Button exitButton;
 
+    private bool wasPlaying = false;
+    private bool isPaused = false;
+
 
     private void Awake() //Called right after a game object is instantiated
     {
@@ -40,6 +43,16 @@ public class AudioOne : MonoBehaviour
         replayButton = instantiatedCanvasUI.transform.Find("ReplayButton").GetComponent<Button>();
         exitButton = instantiatedCanvasUI.transform.Find("ExitButton").GetComponent<Button>();
 
+        if (playButton != null && pauseButton != null && replayButton != null && exitButton != null)
+        {
+            playButton.onClick.AddListener(PlayAudio);
+            pauseButton.onClick.AddListener(PauseAudio);
+            replayButton.onClick.AddListener(StartAudioOne);
+            // Add ExitGame later
+            //exitButton.onClick.AddListener(ExitGame);
+            StartAudioOne();
+        }
+
     }
 
     // Start is called before the first frame update, after all the Awake() are called
@@ -51,43 +64,59 @@ public class AudioOne : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    public void SetUIButtons()
-    {
-        playButton.gameObject.SetActive(false);  // Hide play button initially
-        pauseButton.gameObject.SetActive(true);  // Show pause button initially
-        replayButton.gameObject.SetActive(false); // Hide replay button initially
-        exitButton.gameObject.SetActive(true);
-        Debug.Log("Buttons set up");
-
-        if (playButton != null && pauseButton != null && replayButton != null && exitButton != null)
+        if (wasPlaying == true && !isPaused && !audioClip1.isPlaying)
         {
-            Initialize();
+            wasPlaying = false;
+            OnAudioFinished();
         }
     }
 
-    void Initialize()
-    {
-        playButton.onClick.AddListener(PlayAudio);
-        pauseButton.onClick.AddListener(PauseAudio);
-        //replayButton.onClick.AddListener(ReplayAudio);
-        // Add ExitGame later
-        //exitButton.onClick.AddListener(ExitGame);
+    //public void SetUIButtons()
+    //{
+    //    //playButton.gameObject.SetActive(false);  // Hide play button initially
+    //    //pauseButton.gameObject.SetActive(true);  // Show pause button initially
+    //    //replayButton.gameObject.SetActive(false); // Hide replay button initially
+    //    //exitButton.gameObject.SetActive(true);
+    //    //Debug.Log("Buttons set up");
 
+    //    if (playButton != null && pauseButton != null && replayButton != null && exitButton != null)
+    //    {
+    //        playButton.onClick.AddListener(PlayAudio);
+    //        pauseButton.onClick.AddListener(PauseAudio);
+    //        replayButton.onClick.AddListener(StartAudioOne);
+    //        // Add ExitGame later
+    //        //exitButton.onClick.AddListener(ExitGame);
+    //        StartAudioOne();
+    //    }
+    //}
+
+    //void Initialize()
+    //{
+    //    playButton.onClick.AddListener(PlayAudio);
+    //    pauseButton.onClick.AddListener(PauseAudio);
+    //    //replayButton.onClick.AddListener(ReplayAudio);
+    //    // Add ExitGame later
+    //    //exitButton.onClick.AddListener(ExitGame);
+
+    //    playButton.gameObject.SetActive(false);  // Hide play button initially
+    //    pauseButton.gameObject.SetActive(true);  // Show pause button initially
+    //    replayButton.gameObject.SetActive(false); // Hide replay button initially
+    //    exitButton.gameObject.SetActive(true);
+
+    //    StartAudioOne();
+    //}
+
+    public void StartAudioOne()
+    {
         playButton.gameObject.SetActive(false);  // Hide play button initially
         pauseButton.gameObject.SetActive(true);  // Show pause button initially
         replayButton.gameObject.SetActive(false); // Hide replay button initially
         exitButton.gameObject.SetActive(true);
+        Debug.Log("Buttons initialized, pause and exit button is enabled.");
 
-        StartAudioOne();
-    }
-
-    void StartAudioOne()
-    {
         if (audioClip1 != null)
         {
+            wasPlaying = true;
             audioClip1.Play(0);
             Debug.Log("Audio playing? " + audioClip1.isPlaying);
         }
@@ -99,6 +128,7 @@ public class AudioOne : MonoBehaviour
 
     void PauseAudio()
     {
+        isPaused = true;
         audioClip1.Pause();
         playButton.gameObject.SetActive(true);  // Hide play button initially
         pauseButton.gameObject.SetActive(false);  // Show pause button initially
@@ -106,9 +136,18 @@ public class AudioOne : MonoBehaviour
 
     void PlayAudio()
     {
+        isPaused = false;
         audioClip1.UnPause();
         playButton.gameObject.SetActive(false);  // Hide play button initially
         pauseButton.gameObject.SetActive(true);  // Show pause button initially
+    }
+
+    void OnAudioFinished()
+    {
+        Debug.Log("Audio clip finished playing.");
+        playButton.gameObject.SetActive(false);
+        pauseButton.gameObject.SetActive(false);
+        replayButton.gameObject.SetActive(true);
     }
 
 }
