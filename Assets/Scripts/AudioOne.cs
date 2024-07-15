@@ -9,11 +9,15 @@ public class AudioOne : MonoBehaviour
     public GameObject canvasUIPrefab;
     private GameObject instantiatedCanvasUI;
 
+    public GameObject audioTwoGameObjectPrefab;
+    private GameObject instantiatedAudioTwoGameObject;
+
     private AudioSource audioClip1;
     private Button playButton;
     private Button pauseButton;
     private Button replayButton;
     private Button exitButton;
+    private Button nextButton;
 
     private bool wasPlaying = false;
     private bool isPaused = false;
@@ -42,15 +46,17 @@ public class AudioOne : MonoBehaviour
         pauseButton = instantiatedCanvasUI.transform.Find("PauseButton").GetComponent<Button>();
         replayButton = instantiatedCanvasUI.transform.Find("ReplayButton").GetComponent<Button>();
         exitButton = instantiatedCanvasUI.transform.Find("ExitButton").GetComponent<Button>();
+        nextButton = instantiatedCanvasUI.transform.Find("NextButton").GetComponent<Button>();
 
         if (playButton != null && pauseButton != null && replayButton != null && exitButton != null)
         {
             playButton.onClick.AddListener(PlayAudio);
             pauseButton.onClick.AddListener(PauseAudio);
             replayButton.onClick.AddListener(StartAudioOne);
+            nextButton.onClick.AddListener(CallAudioTwo);
             // Add ExitGame later
             //exitButton.onClick.AddListener(ExitGame);
-            StartAudioOne();
+            //StartAudioOne();
         }
 
     }
@@ -112,6 +118,7 @@ public class AudioOne : MonoBehaviour
         pauseButton.gameObject.SetActive(true);  // Show pause button initially
         replayButton.gameObject.SetActive(false); // Hide replay button initially
         exitButton.gameObject.SetActive(true);
+        nextButton.gameObject.SetActive(false);
         Debug.Log("Buttons initialized, pause and exit button is enabled.");
 
         if (audioClip1 != null)
@@ -148,6 +155,41 @@ public class AudioOne : MonoBehaviour
         playButton.gameObject.SetActive(false);
         pauseButton.gameObject.SetActive(false);
         replayButton.gameObject.SetActive(true);
+        nextButton.gameObject.SetActive(true);
+    }
+
+    void CallAudioTwo()
+    {
+        if (audioTwoGameObjectPrefab != null)
+        {
+            //playButton.gameObject.SetActive(false);
+            //pauseButton.gameObject.SetActive(false);
+            //replayButton.gameObject.SetActive(false);
+            //nextButton.gameObject.SetActive(false);
+            //exitButton.gameObject.SetActive(false);
+
+            if (instantiatedCanvasUI != null)
+            {
+                Destroy(instantiatedCanvasUI);
+            }
+
+            instantiatedAudioTwoGameObject = Instantiate(audioTwoGameObjectPrefab);
+        }
+        else
+        {
+            Debug.LogError("audioTwoGameObjectPrefab is not assigned.");
+        }
+
+        AudioTwo audioTwoScript = instantiatedAudioTwoGameObject.GetComponent<AudioTwo>();
+
+        if (audioTwoScript != null)
+        {
+            audioTwoScript.StartAudioTwo();
+        }
+        else
+        {
+            Debug.LogError("AudioOne script not found on instantiated AudioOne GameObject.");
+        }
     }
 
 }

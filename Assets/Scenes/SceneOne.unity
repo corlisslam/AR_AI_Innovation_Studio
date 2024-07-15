@@ -350,8 +350,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab:
   - {fileID: 597935610844816066, guid: 8e21f490feb3a44e2812364adef14ad9, type: 3}
-  canvasUIPrefab: {fileID: 3180651589512012025, guid: bb858fb646c52414f888cc53d9268d25,
-    type: 3}
   audioOneGameObjectPrefab: {fileID: 8936371756789882705, guid: 386edb5f140c740298f4faf8d24cdc2b,
     type: 3}
 --- !u!114 &106533405

@@ -238,14 +238,12 @@ public class PlaceObject : MonoBehaviour
     private GameObject[] prefab; //Allow for possibility of instantiating more than one prefab in the future
 
     public GameObject audioOneGameObjectPrefab;
+    private GameObject instantiatedAudioOneGameObject;
 
     private ARTrackedImageManager trackedImageManager;
     private Camera arCamera;
 
     private Dictionary<string, GameObject> instantiatedPrefabs = new Dictionary<string, GameObject>();
-
-    private GameObject instantiatedAudioOneGameObject;
- 
 
     private void Awake()
     {
