@@ -51,7 +51,7 @@ public class AudioOne : MonoBehaviour
         exitButton = instantiatedCanvasUI.transform.Find("ExitButton").GetComponent<Button>();
         nextButton = instantiatedCanvasUI.transform.Find("NextButton").GetComponent<Button>();
 
-        if (playButton != null && pauseButton != null && replayButton != null && exitButton != null)
+        if (playButton != null && pauseButton != null && replayButton != null && exitButton != null && nextButton != null)
         {
             playButton.onClick.AddListener(PlayAudio);
             pauseButton.onClick.AddListener(PauseAudio);
@@ -119,8 +119,8 @@ public class AudioOne : MonoBehaviour
         pauseButton.gameObject.SetActive(true);  // Show pause button initially
         replayButton.gameObject.SetActive(false); // Hide replay button initially
         exitButton.gameObject.SetActive(true);
-        nextButton.gameObject.SetActive(false);
-        Debug.Log("Buttons initialized, pause and exit button is enabled.");
+        nextButton.gameObject.SetActive(true);
+        Debug.Log("Buttons initialized, pause, next, and exit button is enabled.");
 
         if (audioClip1 != null)
         {
@@ -152,23 +152,19 @@ public class AudioOne : MonoBehaviour
 
     void OnAudioFinished()
     {
-        Debug.Log("Audio clip finished playing.");
+        Debug.Log("Audio clip 1 finished playing.");
         playButton.gameObject.SetActive(false);
         pauseButton.gameObject.SetActive(false);
         replayButton.gameObject.SetActive(true);
-        nextButton.gameObject.SetActive(true);
     }
 
     void CallAudioTwo()
     {
+        audioClip1.Stop();
+        Debug.Log("Audio clip 1 stopped.");
+
         if (audioTwoGameObjectPrefab != null)
         {
-            //playButton.gameObject.SetActive(false);
-            //pauseButton.gameObject.SetActive(false);
-            //replayButton.gameObject.SetActive(false);
-            //nextButton.gameObject.SetActive(false);
-            //exitButton.gameObject.SetActive(false);
-
             if (instantiatedCanvasUI != null)
             {
                 Destroy(instantiatedCanvasUI);
@@ -186,10 +182,11 @@ public class AudioOne : MonoBehaviour
         if (audioTwoScript != null)
         {
             audioTwoScript.StartAudioTwo();
+            Destroy(gameObject);
         }
         else
         {
-            Debug.LogError("AudioOne script not found on instantiated AudioOne GameObject.");
+            Debug.LogError("AudioTwo script not found on instantiated AudioTwo GameObject.");
         }
     }
 

@@ -248,6 +248,7 @@ public class PlaceObject : MonoBehaviour
     private void Awake()
     {
 
+        // should i instantiate it at awake?
         if (audioOneGameObjectPrefab != null)
         {
             instantiatedAudioOneGameObject = Instantiate(audioOneGameObjectPrefab);
