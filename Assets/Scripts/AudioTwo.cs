@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.XR.Management;
+using UnityEngine.XR.ARFoundation;
 
 public class AudioTwo : MonoBehaviour
 {
@@ -50,9 +53,7 @@ public class AudioTwo : MonoBehaviour
             playButton.onClick.AddListener(PlayAudio);
             pauseButton.onClick.AddListener(PauseAudio);
             replayButton.onClick.AddListener(StartAudioTwo);
-            // Add ExitGame later
-            //exitButton.onClick.AddListener(ExitGame);
-            //StartAudioTwo();
+            exitButton.onClick.AddListener(ExitGame);
         }
 
     }
@@ -151,6 +152,31 @@ public class AudioTwo : MonoBehaviour
         playButton.gameObject.SetActive(false);
         pauseButton.gameObject.SetActive(false);
         replayButton.gameObject.SetActive(true);
+    }
+
+    void ExitGame()
+    {
+
+        SceneManager.LoadScene("HomeScene");
+        LoaderUtility.Deinitialize();
+        //    StartCoroutine(ExitGameCoroutine());
+        //}
+
+        //private IEnumerator ExitGameCoroutine()
+        //{
+        //    var xrManagerSettings = XRGeneralSettings.Instance.Manager;
+
+        //    // Stop the XR subsystems
+        //    xrManagerSettings.StopSubsystems();
+
+        //    // Deinitialize the XR loader and wait until it is complete
+        //    xrManagerSettings.DeinitializeLoader();
+        //    yield return new WaitUntil(() => xrManagerSettings.activeLoader == null);
+
+        //    Debug.Log("XR loader deinitialized.");
+
+        //    // Load the "HomeScene"
+        //    SceneManager.LoadScene("HomeScene");
     }
 
 }

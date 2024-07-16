@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.XR.Management;
+using UnityEngine.XR.ARFoundation;
 
 public class AudioOne : MonoBehaviour
 {
@@ -53,10 +56,8 @@ public class AudioOne : MonoBehaviour
             playButton.onClick.AddListener(PlayAudio);
             pauseButton.onClick.AddListener(PauseAudio);
             replayButton.onClick.AddListener(StartAudioOne);
-            nextButton.onClick.AddListener(CallAudioTwo);
-            // Add ExitGame later
-            //exitButton.onClick.AddListener(ExitGame);
-            //StartAudioOne();
+            nextButton.onClick.AddListener(CallAudioTwo);    
+            exitButton.onClick.AddListener(ExitGame);
         }
 
     }
@@ -190,6 +191,31 @@ public class AudioOne : MonoBehaviour
         {
             Debug.LogError("AudioOne script not found on instantiated AudioOne GameObject.");
         }
+    }
+
+    void ExitGame()
+    {
+
+        SceneManager.LoadScene("HomeScene");
+        LoaderUtility.Deinitialize();
+        //    StartCoroutine(ExitGameCoroutine());
+        //}
+
+        //private IEnumerator ExitGameCoroutine()
+        //{
+        //    var xrManagerSettings = XRGeneralSettings.Instance.Manager;
+
+        //    // Stop the XR subsystems
+        //    xrManagerSettings.StopSubsystems();
+
+        //    // Deinitialize the XR loader and wait until it is complete
+        //    xrManagerSettings.DeinitializeLoader();
+        //    yield return new WaitUntil(() => xrManagerSettings.activeLoader == null);
+
+        //    Debug.Log("XR loader deinitialized.");
+
+        //    // Load the "HomeScene"
+        //    SceneManager.LoadScene("HomeScene");
     }
 
 }
