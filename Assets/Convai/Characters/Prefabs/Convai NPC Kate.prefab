@@ -1,0 +1,447 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4937323093310145986
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_Name
+      value: Convai NPC Kate
+      objectReference: {fileID: 0}
+    - target: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673895995427092645, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c25d0eaa9cc0b3e48bee6c7cbf937a67, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6514550511779194008}
+    - targetCorrespondingSourceObject: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7458430659360667306}
+    - targetCorrespondingSourceObject: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 669559227074404804}
+    - targetCorrespondingSourceObject: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2839752280063215494}
+    - targetCorrespondingSourceObject: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8130972840193757096}
+    - targetCorrespondingSourceObject: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2887347089673108613}
+  m_SourcePrefab: {fileID: 100100000, guid: 2d476bf723c1c4d8aa4a10a590c07bd0, type: 3}
+--- !u!1 &5232854185530829846 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+    type: 3}
+  m_PrefabInstance: {fileID: 4937323093310145986}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &6514550511779194008
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232854185530829846}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!82 &7458430659360667306
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232854185530829846}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &669559227074404804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232854185530829846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b38e4bc919e1f040ba78aea7472893e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: Kate
+  characterID: b039816a-465c-11ef-8fb9-42010a7be011
+  sessionID: -1
+  isCharacterActive: 0
+  actionsHandler: {fileID: 0}
+  convaiLipSync: {fileID: 0}
+  isCharacterTalking: 0
+  initializeSessionID: 1
+  playerInteractionManager: {fileID: 0}
+  narrativeDesignManager: {fileID: 0}
+  onTriggerSent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2839752280063215494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232854185530829846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47bf09eafaaeed940ab9e5531a64790c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <TargetObject>k__BackingField: {fileID: 0}
+  trackingDistance: 10
+  turnSpeed: 5
+  bodyLookAtWeight: 0.6
+  headLookAtWeight: 0.8
+  eyesLookAtWeight: 1
+  lookAway: 0
+--- !u!114 &8130972840193757096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232854185530829846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88bce56f6985ef84f8835a0152628fa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlendshapeType: 1
+  HeadSkinnedMeshRenderer: {fileID: 0}
+  TeethSkinnedMeshRenderer: {fileID: 0}
+  TongueSkinnedMeshRenderer: {fileID: 0}
+  jawBone: {fileID: 0}
+  tongueBone: {fileID: 0}
+  faceModel: 3
+  firstIndex: 0
+  <WeightMultiplier>k__BackingField: 1
+--- !u!114 &2887347089673108613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232854185530829846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d56bc33052944e0aba5a0fe7073c3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sectionChangeEventsDataList:
+  - id: ab7957fe-4931-11ef-8ea1-42010a7be011
+    onSectionStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onSectionEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: 83392fd2-4939-11ef-8332-42010a7be011
+    onSectionStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onSectionEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: 7aabd662-4934-11ef-b8fa-42010a7be011
+    onSectionStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onSectionEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: 7ffe5166-492b-11ef-8332-42010a7be011
+    onSectionStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onSectionEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: 82ea732c-4931-11ef-92b9-42010a7be011
+    onSectionStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onSectionEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  sectionDataList:
+  - sectionId: ab7957fe-4931-11ef-8ea1-42010a7be011
+    sectionName: End
+    behaviorTreeConstants: 
+    objective: '<speak>Thanks for joining the tour, I hope it has been informative.
+      Enjoy the rest of your time at the Innovation Studio.  Do you have any questions
+      for me? Feel free to ask them. If you would like to restart the tour, let me
+      know.</speak>
+
+      If the user has any questions, answer the user''s questions.'
+    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+  - sectionId: 83392fd2-4939-11ef-8332-42010a7be011
+    sectionName: Welcome
+    behaviorTreeConstants: 
+    objective: <speak> Welcome to IBM's Innovation Studio. I am Kate, your host for
+      the Quantum Computer tour. Would you like to take the tour? </speak>
+    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+  - sectionId: 7aabd662-4934-11ef-b8fa-42010a7be011
+    sectionName: Tour part 3 What Are Qubits?
+    behaviorTreeConstants: 
+    objective: "<speak> Quantum computers aim to create higher dimensional Hilbert
+      spaces, which enable the solving of problems that classical computers cannot
+      address. Qubits, the fundamental units of information in quantum computing,
+      can represent both 0 and 1 simultaneously through a phenomenon known as superposition.
+      These qubits are manipulated through specially designed circuits, analogous
+      to classical circuits, using quantum gates that control their state and interactions.\n\nIn
+      a quantum computer, gates perform operations such as putting qubits in superposition
+      or entangling them with other qubits. This manipulation is key to harnessing
+      the unique properties of qubits for computation. By passing through these quantum
+      gates, qubits interact in ways that leverage quantum phenomena to perform complex
+      calculations.\n\nOne significant advantage of quantum computing is its exponential
+      growth in computational power. As more qubits are added, the processing capability
+      increases exponentially (2^n, where n is the number of qubits). This exponential
+      increase allows quantum computers to tackle problems and perform calculations
+      far beyond the reach of classical computers, demonstrating their potential
+      for transformative computational advancements. \n\nDo you have any questions?
+      Please let me know if you would like to proceed to the next section of the
+      tour, the previous section of the tour, or end the tour. </speak>\nIf the user
+      has any questions, answer them. \n"
+    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+  - sectionId: 7ffe5166-492b-11ef-8332-42010a7be011
+    sectionName: Tour part 1 Intro
+    behaviorTreeConstants: 
+    objective: '<speak> Great let''s begin!  So what you can see here is a quantum
+      computer. In a real life scenario, you would have a classical computer connected
+      to your quantum computer with hundreds of coaxial cables. The whole structure
+      often resembles a chandelier.
+
+
+      90% of what you can see in the structure
+      is a dilution refrigerator. The reason why there is a fridge is that you need
+      to cool down your qubits to temperatures close to absolute zero, which is around
+      0.01 Kelvin (about -273.14 Celsius). To get an idea of how cold this is, it''s
+      significantly colder than outer space, which is approximately 2.7 Kelvin.
+
+
+      Do
+      you have any questions? Please let me know if you would like to proceed to
+      the next section of the tour or end the tour.
+
+      </speak>
+
+      If the
+      user has any questions, answer them. If the user wants to repeat this section,
+      restart this section again.'
+    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+  - sectionId: 82ea732c-4931-11ef-92b9-42010a7be011
+    sectionName: Tour part 2 Cooling
+    behaviorTreeConstants: 
+    objective: "<speak> Cooling the qubits to this temperature removes noise and
+      allows them to function at a quantum mechanical level. The loops and design
+      you see here are part of a demo, not the actual design, as IBM doesn't reveal
+      its proprietary designs. Helium-3 and Helium-4 gasses run through the system,
+      expanding and compressing to achieve cooling. Each level of the refrigerator
+      has a specific temperature, getting cooler as the gas moves down, eventually
+      reaching near absolute zero. \n\nThe most crucial part is the quantum processor
+      at the bottom, where the qubits are stored and operations occur. In practice,
+      you would submit quantum circuits via a classical computer, sending microwave
+      signals down to the quantum processor, which performs the operations at nearly
+      absolute zero and sends the results back up for you to read on your system.\n\nOnce
+      the operations are performed on the qubits, the results travel back up through
+      the system and are read on the classical computer. This entire process enables
+      the quantum computer to perform complex calculations by maintaining the qubits
+      in a state where they can function at a quantum mechanical level. \n\nDo you
+      have any questions? Please let me know if you would like to proceed to the
+      next section of the tour, the previous section of the tour, or end the tour.
+      </speak>\nIf the user has any questions, answer them. If the user wants to
+      repeat this section, restart this section again.\n"
+    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+  triggerDataList: []
