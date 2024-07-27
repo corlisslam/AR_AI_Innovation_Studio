@@ -21,17 +21,17 @@ PrefabInstance:
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.25
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
@@ -46,12 +46,12 @@ PrefabInstance:
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
@@ -76,7 +76,7 @@ PrefabInstance:
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
@@ -116,7 +116,17 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2887347089673108613}
+    - targetCorrespondingSourceObject: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2841665669233070404}
   m_SourcePrefab: {fileID: 100100000, guid: 2d476bf723c1c4d8aa4a10a590c07bd0, type: 3}
+--- !u!137 &735024935635653467 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5672196291104052889, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+    type: 3}
+  m_PrefabInstance: {fileID: 4937323093310145986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5232854185530829846 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
@@ -299,8 +309,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlendshapeType: 1
-  HeadSkinnedMeshRenderer: {fileID: 0}
-  TeethSkinnedMeshRenderer: {fileID: 0}
+  HeadSkinnedMeshRenderer: {fileID: 735024935635653467}
+  TeethSkinnedMeshRenderer: {fileID: 5366888053785843454}
   TongueSkinnedMeshRenderer: {fileID: 0}
   jawBone: {fileID: 0}
   tongueBone: {fileID: 0}
@@ -392,8 +402,8 @@ MonoBehaviour:
       far beyond the reach of classical computers, demonstrating their potential
       for transformative computational advancements. \n\nDo you have any questions?
       Please let me know if you would like to proceed to the next section of the
-      tour, the previous section of the tour, or end the tour. </speak>\nIf the user
-      has any questions, answer them. \n"
+      tour, the previous section of the tour, or end the tour. </speak>\n If the
+      user wants to repeat this section, restart this section again.\n"
     characterId: b039816a-465c-11ef-8fb9-42010a7be011
   - sectionId: 7ffe5166-492b-11ef-8332-42010a7be011
     sectionName: Tour part 1 Intro
@@ -444,4 +454,34 @@ MonoBehaviour:
       </speak>\nIf the user has any questions, answer them. If the user wants to
       repeat this section, restart this section again.\n"
     characterId: b039816a-465c-11ef-8fb9-42010a7be011
-  triggerDataList: []
+  triggerDataList:
+  - triggerId: 292afab0-4ae8-11ef-b847-42010a7be011
+    triggerName: Start
+    triggerMessage: The user wants to start the tour.
+    destinationSection: 83392fd2-4939-11ef-8332-42010a7be011
+    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+--- !u!114 &2841665669233070404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232854185530829846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c783ed73e64a204ebf38b93c054b566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  convaiNPC: {fileID: 669559227074404804}
+  selectedTriggerIndex: 0
+  availableTriggers:
+  - Start
+  onTriggerEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!137 &5366888053785843454 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1080829886998041404, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
+    type: 3}
+  m_PrefabInstance: {fileID: 4937323093310145986}
+  m_PrefabAsset: {fileID: 0}
