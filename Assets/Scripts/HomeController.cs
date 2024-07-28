@@ -9,7 +9,7 @@ public class HomeController : MonoBehaviour
 {
     public GameObject homeUIPrefab;
     private GameObject instantiatedHomeUI;
-    private Button startButton;
+    private Button cameraButton;
 
     private void Awake()
     {
@@ -17,15 +17,16 @@ public class HomeController : MonoBehaviour
         Debug.Log("Home UI instantiated, start button showing.");
         Debug.Log("UI that is assigned to instantiatedHomeUI is " + instantiatedHomeUI.name);
 
-        startButton = instantiatedHomeUI.transform.Find("StartButton").GetComponent<Button>();
+        cameraButton = instantiatedHomeUI.transform.Find("CameraButton").GetComponent<Button>();
 
-        startButton.onClick.AddListener(OnStartButtonPressed);
+        cameraButton.onClick.AddListener(OnCameraButtonPressed);
     }
 
-    public void OnStartButtonPressed()
+    public void OnCameraButtonPressed()
     {
         LoaderUtility.Initialize();
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("CharacterTour");
+        //SceneManager.LoadScene("MainScene");
 
         //    StartCoroutine(InitializeLoaderAndLoadScene());
         //    //SceneManager.LoadScene("MainScene");
