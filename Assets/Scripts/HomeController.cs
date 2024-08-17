@@ -24,8 +24,9 @@ public class HomeController : MonoBehaviour
 
     public void OnCameraButtonPressed()
     {
+        Debug.Log("Loading MainScanner scene");
         LoaderUtility.Initialize();
-        SceneManager.LoadScene("CharacterTour");
+        SceneManager.LoadScene("MainScanner");
         //SceneManager.LoadScene("MainScene");
 
         //    StartCoroutine(InitializeLoaderAndLoadScene());

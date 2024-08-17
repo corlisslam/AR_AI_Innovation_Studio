@@ -8,9 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HomeScene.unity
     guid: 55df340a5f5ad4d148bf152b95b1fb68
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/MainScanner.unity
+    guid: c07572206466846369e17d883ec52729
+  - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: af09885d4a6c446259b682f2b0280df0
+  - enabled: 1
+    path: Assets/Scenes/CharacterTour.unity
+    guid: 3c2f64327f8be4e729a3f994b0f87124
   - enabled: 0
     path: Assets/Scenes/SceneTwo.unity
     guid: 358bb38ca40b04ff7b03e6df7247ef4e
@@ -20,9 +26,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Convai/ConvaiAR/Scenes/Convai Demo - AR.unity
     guid: d23e25ca551aacf4c80e8a01703e8490
-  - enabled: 1
-    path: Assets/Scenes/CharacterTour.unity
-    guid: 3c2f64327f8be4e729a3f994b0f87124
   - enabled: 0
     path: Assets/Convai/ConvaiAR/Scenes/Convai Demo - AR 1.unity
     guid: 22caa30a0e4c94dd8a0608fbb6ef2ba3

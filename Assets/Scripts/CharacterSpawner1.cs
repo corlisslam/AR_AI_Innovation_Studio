@@ -152,7 +152,7 @@ public class CharacterSpawner1 : MonoBehaviour
     // Prefab for the Convai character
     public GameObject _characterPrefab;
 
-    private ARTrackedImageManager _arTrackedImageManager;
+    //private ARTrackedImageManager _arTrackedImageManager;
 
     // Event triggered when a character is spawned
     public Action OnCharacterSpawned;
@@ -180,40 +180,50 @@ public class CharacterSpawner1 : MonoBehaviour
             Debug.Log("Listener added to Exit button and button is initialized");
         }
 
+        //GameObject character = SpawnCharacter();
+        //character.transform.SetParent(null, true);
+
         // Assuming this script is attached to the XR Origin GameObject
-        _arTrackedImageManager = GetComponent<ARTrackedImageManager>();
+        //_arTrackedImageManager = GetComponent<ARTrackedImageManager>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        _arTrackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
+        GameObject character = SpawnCharacter();
     }
 
-    private void OnDisable()
-    {
-        _arTrackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
-    }
+
+
+    //private void OnEnable()
+    //{
+    //    _arTrackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
+    //}
+
+    //private void OnDisable()
+    //{
+    //    _arTrackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
+    //}
 
     /// <summary>
     /// Handles tracked image changes, spawning characters on added images.
     /// </summary>
     /// <param name="eventArgs">Event arguments containing information about tracked image changes.</param>
-    private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
-    {
-        foreach (var trackedImage in eventArgs.added)
-        {
-            // Handle Added Event
-            Debug.Log("Tracked image added: " + trackedImage.referenceImage.name);
-            if (trackedImage.referenceImage.name == "Marker")
-            {
-                Debug.Log("Tracked image's name is Marker, calling SpawnCharacter method");
-                GameObject character = SpawnCharacter();
-                //character.transform.parent = trackedImage.transform;
+    //private void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
+    //{
+    //    foreach (var trackedImage in eventArgs.added)
+    //    {
+    //        // Handle Added Event
+    //        Debug.Log("Tracked image added: " + trackedImage.referenceImage.name);
+    //        if (trackedImage.referenceImage.name == "MarkerBall")
+    //        {
+    //            Debug.Log("Tracked image's name is MarkerBall, calling SpawnCharacter method");
+    //            GameObject character = SpawnCharacter();
+    //            //character.transform.parent = trackedImage.transform;
 
-                character.transform.SetParent(null, true);
-            }
-        }
-    }
+    //            character.transform.SetParent(null, true);
+    //        }
+    //    }
+    //}
 
     private GameObject SpawnCharacter()
     {
