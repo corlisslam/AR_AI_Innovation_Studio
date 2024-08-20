@@ -11,6 +11,8 @@ TagManager:
   - TubeLogo
   - BigBen
   - Banksy
+  - Character
+  - CharacterTour
   layers:
   - Default
   - TransparentFX

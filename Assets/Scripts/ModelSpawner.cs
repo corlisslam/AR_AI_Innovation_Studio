@@ -11,19 +11,15 @@ public class ModelSpawner : MonoBehaviour
 
     void Awake()
     {
-        if (TrackedImageTransform.Instance != null)
+        for (int i = 0; i < prefabs.Length; i++)
         {
-            for (int i = 0; i < prefabs.Length; i++)
+            if (prefabs[i] != null)
             {
-                if (prefabs[i] != null)
-                {
-                    GameObject instantiatedPrefab = Instantiate(prefabs[i]); //, TrackedImageTransform.Instance.position, TrackedImageTransform.Instance.rotation);
-                    instantiatedPrefab.transform.SetParent(null, true);
-                }
+                GameObject instantiatedPrefab = Instantiate(prefabs[i]); //, TrackedImageTransform.Instance.position, TrackedImageTransform.Instance.rotation);
+                Debug.Log("Prefab instantiated: " + instantiatedPrefab.name);
+                instantiatedPrefab.transform.SetParent(null, true);
             }
-
         }
-        
     }
 
 }

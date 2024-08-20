@@ -16,7 +16,7 @@ PrefabInstance:
     - target: {fileID: 872062364330928596, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}
       propertyPath: m_TagString
-      value: Character
+      value: CharacterTour
       objectReference: {fileID: 0}
     - target: {fileID: 2258600832743811121, guid: 2d476bf723c1c4d8aa4a10a590c07bd0,
         type: 3}

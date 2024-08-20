@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 
 
@@ -12,18 +13,22 @@ public class Scanner : MonoBehaviour
 {
     private ARTrackedImageManager _trackedImageManager;
     private Camera arCamera;
+    private ARSession _arSession;
+    private Keyboard keyboard;
 
 
     //private ARTrackedImage currentTrackedImage; // To store the currently tracked image
 
     private string currentAdditiveScene = null;
 
-    public UIController uiController;
+    //public UIController uiController;
 
     void Awake()
     {
         _trackedImageManager = GetComponent<ARTrackedImageManager>();
+        _arSession = FindObjectOfType<ARSession>();
         arCamera = Camera.main;
+        keyboard = Keyboard.current; // Access the current keyboard device
 
         if (arCamera == null)
         {
@@ -32,6 +37,35 @@ public class Scanner : MonoBehaviour
 
         
     }
+
+    private void Update()
+    {
+        if (keyboard.bKey.wasPressedThisFrame) 
+        {
+            Debug.Log("B key was pressed.");
+            Debug.Log("CurrentAdditiveScene: " + currentAdditiveScene);
+            Debug.Log("Unloading additive scene: " + currentAdditiveScene);
+            SceneManager.UnloadSceneAsync(currentAdditiveScene, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+            Debug.Log("Additive scene unloaded");
+
+        }
+
+        if (keyboard.lKey.wasPressedThisFrame) //unload character tour scene with kekey
+        {
+            Debug.Log("L key was pressed.");
+            StartCoroutine(CleanupAndUnloadScene(3));
+        }
+    }
+
+    /*
+    private void UnloadScene()
+    {
+        Debug.Log("CurrentAdditiveScene: " + currentAdditiveScene);
+        Debug.Log("Unloading additive scene: " + currentAdditiveScene);
+        SceneManager.UnloadSceneAsync(currentAdditiveScene, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+        Debug.Log("Additive scene unloaded");
+    }
+    */
 
     private void OnEnable()
     {
@@ -47,129 +81,144 @@ public class Scanner : MonoBehaviour
         foreach (var trackedImage in eventArgs.added)
         {
             Debug.Log("Tracked image added: " + trackedImage.referenceImage.name);
-            TrackedImageTransform.Instance.position = trackedImage.transform.position;
-            TrackedImageTransform.Instance.rotation = trackedImage.transform.rotation;
-            TrackedImageTransform.Instance.imageName = trackedImage.referenceImage.name;
+            Debug.Log("CurrentAdditiveScene: " + currentAdditiveScene);
 
-            //TrackedImageTransform.Instance.transform.position = TrackedImageTransform.Instance.position;
-            //TrackedImageTransform.Instance.transform.rotation = TrackedImageTransform.Instance.rotation;
+            /* //MAKE SURE IT DOESN'T RESCAN BY ITSELF
+            if (string.IsNullOrEmpty(currentAdditiveScene))
+            {
+                if (trackedImage.referenceImage.name == "MarkerBall")
+                {
+                    Debug.Log("Tracked image's name is MarkerBall, loading CharacterTour scene");
+                    SceneManager.LoadSceneAsync("CharacterTour", LoadSceneMode.Additive);
+                    currentAdditiveScene = "CharacterTour";
+                    Debug.Log("CurrentAdditiveScene: " + currentAdditiveScene);
 
-            //currentTrackedImage = trackedImage; // Store the tracked image reference
+                }
 
+                if (trackedImage.referenceImage.name == "MarkerModels")
+                {
+                    Debug.Log("Tracked image's name is MarkerModels, loading MainScene scene");
+                    SceneManager.LoadSceneAsync("MainScene", LoadSceneMode.Additive);
+                    currentAdditiveScene = "MainScene";
+                    Debug.Log("CurrentAdditiveScene: " + currentAdditiveScene);
 
-            // Unload the current additive scene if it exists when a new tracked image is added
+                }
+            }
+
+            if (!string.IsNullOrEmpty(currentAdditiveScene))
+            {
+                Debug.Log("Another image in background detected but already have scanned an image");
+            }
+            */ //MAKE SURE IT DOESN'T RESCAN BY ITSELF
+
+            //Unload the current additive scene if it exists when a new tracked image is added
             if (!string.IsNullOrEmpty(currentAdditiveScene) && SceneManager.GetSceneByName(currentAdditiveScene).isLoaded)
             {
-                if (currentAdditiveScene == "CharacterTour")
+                
+                Debug.Log("CurrentAdditiveScene: " + currentAdditiveScene);
+                //Debug.Log("Unloading additive scene: " + currentAdditiveScene);
+                //SceneManager.UnloadSceneAsync(currentAdditiveScene, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
+                //Debug.Log("Additive scene unloaded");
+
+                if (currentAdditiveScene == "CharacterTour" && trackedImage.referenceImage.name != "MarkerBall")
                 {
-                    Debug.Log("Unloading additive scene: " + currentAdditiveScene);
-                    SceneManager.UnloadSceneAsync(currentAdditiveScene);
-                    currentAdditiveScene = null;
-
-                    GameObject baseEventSystem = GameObject.Find("EventSystem");
-                    if (baseEventSystem != null)
-                    {
-                        baseEventSystem.SetActive(true);
-                        Debug.Log("Base EventSystem re-enabled.");
-                    }
-                    else
-                    {
-                        Debug.LogError("Base EventSystem not found.");
-                    }
-
-                    Button exitButton = uiController.exitButton;
-                    if (exitButton != null)
-                    {
-                        exitButton.gameObject.SetActive(true);
-                        Debug.Log("Base exit button enabled.");
-                    }
-                    else
-                    {
-                        Debug.LogError("Base exit button not found.");
-                    }
+                    Debug.Log("Starting CleanupAdditiveScene coroutine");
+                    StartCoroutine(CleanupAndUnloadScene(3));
+                    //Debug.Log("Starting UnloadScene coroutine for CharacterTour");
+                    //StartCoroutine(UnloadScene(3));
                 }
 
-                else
+                else if (currentAdditiveScene == "MainScene" && trackedImage.referenceImage.name != "MarkerModels")
                 {
-                    Debug.Log("Unloading additive scene: " + currentAdditiveScene);
-                    SceneManager.UnloadSceneAsync(currentAdditiveScene);
-                    currentAdditiveScene = null;
+                    Debug.Log("Starting UnloadScene coroutine for MainScene");
+                    StartCoroutine(CleanupAndUnloadScene(2));
                 }
-
-            }
-
-            
-            if (trackedImage.referenceImage.name == "MarkerBall")
-            {
-                //GameObject uiController = GameObject.Find("UI Controller");
-                //if (uiController != null)
-                //{
-                //    uiController.SetActive(true);
-                //    Debug.Log("UI Controller activated after scene load.");
-                //}
-                //else
-                //{
-                //    Debug.LogError("UI Controller not found!");
-                //}
-
-                GameObject baseEventSystem = GameObject.Find("EventSystem");
 
                 
-                Button exitButton = uiController.exitButton;
-                if (exitButton != null)
-                {
-                    exitButton.gameObject.SetActive(false);
-                    Debug.Log("Base exit button disabled.");
-                }
-                else
-                {
-                    Debug.LogError("Base exit button not found.");
-                }
-
-                // Disable the base scene's EventSystem
-                if (baseEventSystem != null)
-                {
-                    baseEventSystem.SetActive(false);
-                    Debug.Log("Base EventSystem disabled.");
-                }
-                else
-                {
-                    Debug.LogError("Base EventSystem not found.");
-                }
-
-
-                Debug.Log("Tracked image's name is MarkerBall, loading CharacterTour scene");
-                SceneManager.LoadSceneAsync("CharacterTour", LoadSceneMode.Additive);
-                currentAdditiveScene = "CharacterTour";
-
             }
+            
 
-            if (trackedImage.referenceImage.name == "MarkerModels")
+            if (trackedImage.referenceImage.name == "MarkerBall" && currentAdditiveScene != "CharacterTour")
             {
-                //GameObject uiController = GameObject.Find("UI Controller");
-                //if (uiController != null)
-                //{
-                //    uiController.SetActive(true);
-                //    Debug.Log("UI Controller activated after scene load.");
-                //}
-                //else
-                //{
-                //    Debug.LogError("UI Controller not found!");
-                //}
 
-                Debug.Log("Tracked image's name is MarkerModels, loading MainScene scene");
-                SceneManager.LoadSceneAsync("MainScene", LoadSceneMode.Additive);
-                currentAdditiveScene = "MainScene";
+                Debug.Log("Tracked image's name is MarkerBall, loading CharacterTour scene by calling LoadScene Coroutine");
+                StartCoroutine(LoadScene(3));
+                //SceneManager.LoadSceneAsync("CharacterTour", LoadSceneMode.Additive).completed += OnSceneLoaded;
+                currentAdditiveScene = "CharacterTour";
+                Debug.Log("CurrentAdditiveScene: " + currentAdditiveScene);
+
 
             }
+
+            if (trackedImage.referenceImage.name == "MarkerModels" && currentAdditiveScene != "MainScene")
+            {
+
+                Debug.Log("Tracked image's name is MarkerModels, loading MainScene scene by calling LoadScene Coroutine.");
+                StartCoroutine(LoadScene(2));
+                //SceneManager.LoadSceneAsync("MainScene", LoadSceneMode.Additive).completed += OnSceneLoaded ;
+                currentAdditiveScene = "MainScene";
+                Debug.Log("CurrentAdditiveScene: " + currentAdditiveScene);
+            }
+            //Unload the current additive scene if it exists when a new tracked image is added
+
         }
     }
 
-    //void Update()
-    //{
-    //    if (TrackedImageTransform.Instance != null)
-    //    {
-    //        Debug.Log("Tracked Image Position: " + TrackedImageTransform.Instance.position);
-    //    }
-    //}
+    private IEnumerator LoadScene(int buildIndex)
+    {
+        Debug.Log("Loading Scene: " + buildIndex);
+        yield return SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
+        // Scene has loaded, now disable and re-enable the ARTrackedImageManager
+        Debug.Log("Calling RestartARSession Coroutine.");
+        StartCoroutine(RestartARSession());
+    }
+
+    private IEnumerator RestartARSession()
+{
+        // Disable the AR session
+        if (_arSession != null)
+        {
+            Debug.Log("Disabling AR session...");
+            _arSession.Reset();  // Alternatively, you can disable it and then re-enable if Reset isn't sufficient
+            yield return new WaitForSeconds(1f); // Wait a second for the session to reset
+            Debug.Log("AR session restarted.");
+        }
+
+        // Re-enable the AR session
+                //if (_arSession != null)
+                //{
+                //    Debug.Log("Enabling AR session...");
+                //    _arSession.enabled = true;
+                //}
+    }
+
+    private IEnumerator CleanupAndUnloadScene(int buildIndex)
+    {
+        GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("CharacterTour");
+        foreach (GameObject obj in objectsToDestroy)
+        {
+            Debug.Log("Destroying object tagged CharacterTour");
+            Destroy(obj);
+            Debug.Log("Destroyed an object tagged CharacterTour.");
+
+            // Wait until the object is null (i.e., fully destroyed)
+            yield return new WaitUntil(() => obj == null);
+        }
+
+        Debug.Log("Unloading Scene: " + buildIndex);
+        yield return SceneManager.UnloadSceneAsync(buildIndex);
+        Debug.Log("Additive scene unloaded");
+        currentAdditiveScene = null;
+        Debug.Log("Set CurrentAdditiveScene as null.");
+
+    }
+
+    private IEnumerator UnloadScene(int buildIndex)
+    {
+        //Debug.Log("Current additive scene is" + currentAdditiveScene);
+        Debug.Log("Unloading Scene: " + buildIndex);
+        yield return SceneManager.UnloadSceneAsync(buildIndex);
+    }
+
 }
+

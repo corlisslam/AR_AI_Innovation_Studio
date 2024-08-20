@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;
@@ -12,6 +12,9 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
 
+    // Singleton instance
+    public static UIController Instance { get; private set; }
+
     public GameObject canvasUIPrefab;
     private GameObject instantiatedCanvasUI;
 
@@ -19,6 +22,17 @@ public class UIController : MonoBehaviour
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Persist across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Destroy any duplicate instances
+            return;
+        }
+
         instantiatedCanvasUI = Instantiate(canvasUIPrefab);
         Debug.Log("Canvas UI instantiated, but all buttons disabled.");
         Debug.Log("UI that is assigned to instantiatedCanvasUI is " + instantiatedCanvasUI.name);
@@ -38,22 +52,45 @@ public class UIController : MonoBehaviour
         }
     }
 
-    void ExitGame()
+
+    private IEnumerator CleanupAdditiveScene()
+    {
+        GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("CharacterTour");
+        foreach (GameObject obj in objectsToDestroy)
+        {
+            Debug.Log("Destroying object.");
+            Destroy(obj);
+
+            // Wait until the object is null (i.e., fully destroyed)
+            yield return new WaitUntil(() => obj == null);
+        }
+        
+    }
+
+    private void ExitGame()
     {
         if (exitButton != null)
         {
             exitButton.gameObject.SetActive(false);
-            Debug.Log("Exit button is deactivated");
+            Debug.Log("Exit button is deactivated (singleton)");
+
+            Debug.Log("Calling CleanupAdditiveScene CoRoutine");
+            StartCoroutine(CleanupAdditiveScene());
 
             Debug.Log("Loading Home Scene");
-            SceneManager.LoadScene("HomeScene");
+            SceneManager.LoadSceneAsync("HomeScene");
             LoaderUtility.Deinitialize();
+            Debug.Log("Called LoaderUtility.Deinitialize()");
+            Destroy(gameObject);
+
         }
         else
         {
             Debug.LogError("Unable to go home with Home button");
         }
     }
+
+    
     //public GameObject canvasUIPrefab;
     //private GameObject instantiatedCanvasUI;
 

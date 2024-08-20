@@ -152,33 +152,54 @@ public class CharacterSpawner1 : MonoBehaviour
     // Prefab for the Convai character
     public GameObject _characterPrefab;
 
+    private ARRaycastManager _arRaycastManager;
+    private ARPlaneManager _arPlaneManager;
+    private ARTrackedImageManager _arTrackedImageManager;
+
+    // Flag to determine if character spawn mode is active
+    private bool _isSpawnModeActive = true;
+
+    // Flag indicating whether the maximum character count has been reached
+    private bool _isMaxCharacterCountReached;
+
+    // Counter for the number of characters spawned
+    private int _spawnedCharacterCount;
+
+    // Maximum number of characters allowed to be spawned
+    private const int MAX_CHARACTER_COUNT = 5;
+
     //private ARTrackedImageManager _arTrackedImageManager;
 
     // Event triggered when a character is spawned
     public Action OnCharacterSpawned;
 
-    public GameObject canvasUIPrefab;
-    private GameObject instantiatedCanvasUI;
+    //public GameObject canvasUIPrefab;
+    //private GameObject instantiatedCanvasUI;
 
-    private Button exitButton;
+    //private Button exitButton;
 
     /// <summary>
     /// Initializes necessary components and finds AR-related managers.
     /// </summary>
     private void Awake()
     {
-        instantiatedCanvasUI = Instantiate(canvasUIPrefab);
-        Debug.Log("Canvas UI instantiated, but all buttons disabled except for exit.");
-        Debug.Log("UI that is assigned to instantiatedCanvasUI is " + instantiatedCanvasUI.name);
+        _arRaycastManager = FindObjectOfType<ARRaycastManager>();
+        _arPlaneManager = FindObjectOfType<ARPlaneManager>();
+        //instantiatedCanvasUI = Instantiate(canvasUIPrefab);
+        //Debug.Log("Canvas UI instantiated, but all buttons disabled except for exit.");
+        //Debug.Log("UI that is assigned to instantiatedCanvasUI is " + instantiatedCanvasUI.name);
 
-        exitButton = instantiatedCanvasUI.transform.Find("ExitButton").GetComponent<Button>();
+        //exitButton = instantiatedCanvasUI.transform.Find("ExitButton").GetComponent<Button>();
 
-        if (exitButton != null)
-        {
-            exitButton.onClick.AddListener(ExitGame);
-            exitButton.gameObject.SetActive(true);
-            Debug.Log("Listener added to Exit button and button is initialized");
-        }
+        //if (UIController.Instance.exitButton != null)
+        //{
+            //exitButton.onClick.AddListener(ExitGame);
+            //exitButton.gameObject.SetActive(true);
+            //Debug.Log("Listener added to Exit button and button is initialized");
+
+        //    UIController.Instance.exitButton.gameObject.SetActive(true);
+        //    Debug.Log("Singleton exit button enabled in Character Tour scene.");
+        //}
 
         //GameObject character = SpawnCharacter();
         //character.transform.SetParent(null, true);
@@ -190,6 +211,7 @@ public class CharacterSpawner1 : MonoBehaviour
     private void Start()
     {
         GameObject character = SpawnCharacter();
+        //SceneManagerSingleton.Instance.SetNPC(character);
     }
 
 
@@ -235,12 +257,12 @@ public class CharacterSpawner1 : MonoBehaviour
         return character;
     }
 
-    void ExitGame()
-    {
-        SceneManager.LoadScene("HomeScene");
-        LoaderUtility.Deinitialize();
+    //void ExitGame()
+    //{
+    //    SceneManager.LoadScene("HomeScene");
+    //    LoaderUtility.Deinitialize();
 
-    }
+    //}
 }
 
 
