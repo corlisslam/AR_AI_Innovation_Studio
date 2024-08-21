@@ -189,7 +189,7 @@ public class Scanner : MonoBehaviour
                 //{
                 //    Debug.Log("Enabling AR session...");
                 //    _arSession.enabled = true;
-                //}
+                //}destroy
     }
 
     private IEnumerator CleanupAndUnloadScene(int buildIndex)
@@ -208,8 +208,8 @@ public class Scanner : MonoBehaviour
         Debug.Log("Unloading Scene: " + buildIndex);
         yield return SceneManager.UnloadSceneAsync(buildIndex);
         Debug.Log("Additive scene unloaded");
-        currentAdditiveScene = null;
-        Debug.Log("Set CurrentAdditiveScene as null.");
+        //currentAdditiveScene = null;
+        //Debug.Log("Set CurrentAdditiveScene as null.");
 
     }
 
