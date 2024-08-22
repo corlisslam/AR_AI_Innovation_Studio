@@ -12,24 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
   m_Name: ReferenceImageLibrary
   m_EditorClassIdentifier: 
-  m_GuidLow: 5506481203519681906
-  m_GuidHigh: 14492075854693522104
+  m_GuidLow: 4944467361844910289
+  m_GuidHigh: 9101571942573327543
   m_DataStore:
     m_Storage: []
   m_Images:
   - m_SerializedGuid:
-      m_GuidLow: 5004002414597831763
-      m_GuidHigh: 14944669959523140007
+      m_GuidLow: 4792885775529467316
+      m_GuidHigh: 2352500491200496280
+    m_SerializedTextureGuid:
+      m_GuidLow: 17623986438043784692
+      m_GuidHigh: 10551018019779166634
+    m_Size: {x: 0.1, y: 0.10042735}
+    m_SpecifySize: 1
+    m_Name: Part2
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5307742695074749694
+      m_GuidHigh: 14670098154141900722
     m_SerializedTextureGuid:
       m_GuidLow: 331769525064192394
       m_GuidHigh: 12065829156354974248
     m_Size: {x: 0.1, y: 0.1}
     m_SpecifySize: 1
-    m_Name: MarkerBall
+    m_Name: Part1
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
-      m_GuidLow: 5662318401876815106
-      m_GuidHigh: 10420279899476115891
+      m_GuidLow: 4853840014691821540
+      m_GuidHigh: 9969012281274755992
     m_SerializedTextureGuid:
       m_GuidLow: 16493444901463926750
       m_GuidHigh: 18254407370085852475

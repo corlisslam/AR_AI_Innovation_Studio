@@ -53,7 +53,7 @@ public class UIController : MonoBehaviour
     }
 
 
-    private IEnumerator CleanupAdditiveScene()
+    private IEnumerator CleanupCharacterTourScene()
     {
         GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("CharacterTour");
         foreach (GameObject obj in objectsToDestroy)
@@ -67,28 +67,121 @@ public class UIController : MonoBehaviour
         
     }
 
-    private void ExitGame()
+    private IEnumerator ExitGameCoroutine(float timeout)
     {
+        // Deactivate the exit button
         if (exitButton != null)
         {
             exitButton.gameObject.SetActive(false);
-            Debug.Log("Exit button is deactivated (singleton)");
+            Debug.Log("Exit button is deactivated.");
 
-            Debug.Log("Calling CleanupAdditiveScene CoRoutine");
-            StartCoroutine(CleanupAdditiveScene());
+            // Start cleaning up the CharacterTour scene
+            Debug.Log("Starting CleanupCharacterTourScene Coroutine.");
+            yield return StartCoroutine(CleanupCharacterTourScene());
 
-            Debug.Log("Loading Home Scene");
-            SceneManager.LoadSceneAsync("HomeScene");
+            //should you add a coroutine to make sure all additive scenes are cleared?
+
+            // Destroy the SelectedTriggerIndex Singleton
+            Debug.Log("Destroying SelectedTriggerIndex Singleton.");
+            if (SelectedTriggerIndexSetter.Instance != null)
+            {
+                SelectedTriggerIndexSetter.Instance.DestroySelectedTriggerIndex();
+                yield return null;
+            }
+            else
+            {
+                Debug.Log("Unable to destroy SelectedTriggerIndex Singleton.");
+            }
+
+            // Load the home scene
+            Debug.Log("Loading Home Scene...");
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("HomeScene");
+
+            float elapsedTime = 0f;
+
+            // Wait for the scene to load or for the timeout
+            while (!asyncLoad.isDone)
+            {
+                // If the loading takes longer than the timeout, exit the loop
+                if (elapsedTime >= timeout)
+                {
+                    Debug.LogError("Scene loading timed out.");
+                    HandleSceneLoadFailure();
+                    yield break;
+                }
+
+                // Increment the elapsed time
+                elapsedTime += Time.deltaTime;
+
+                // Yield until the next frame
+                yield return null;
+            }
+            //yield return asyncLoad;  // Wait for the scene to fully load
+
+            // If the scene loads successfully
+            Debug.Log("Scene loaded successfully.");
+
+            // Deinitialize the loader utility after the scene loads
             LoaderUtility.Deinitialize();
-            Debug.Log("Called LoaderUtility.Deinitialize()");
-            Destroy(gameObject);
+            Debug.Log("Called LoaderUtility.Deinitialize().");
 
+            // Destroy the UIController after everything has completed
+            Destroy(gameObject);
+            Debug.Log("UIController destroyed.");
         }
         else
         {
-            Debug.LogError("Unable to go home with Home button");
+            Debug.LogError("Exit button is null. Unable to exit.");
         }
     }
+
+    private void HandleSceneLoadFailure()
+    {
+        // Handle what should happen if the scene fails to load
+        Debug.LogError("Failed to load Home Scene.");
+        // Add error handling, fallback logic, or retry logic here
+    }
+
+    private void ExitGame()
+    {
+        StartCoroutine(ExitGameCoroutine(10f));
+    }
+
+
+    //private void ExitGame()
+    //{
+    //    if (exitButton != null)
+    //    {
+    //        exitButton.gameObject.SetActive(false);
+    //        Debug.Log("Exit button is deactivated (singleton)");
+
+    //        Debug.Log("Calling CleanupAdditiveScene CoRoutine");
+    //        StartCoroutine(CleanupCharacterTourScene());
+
+    //        Debug.Log("Destroying SelectedTriggerIndex Singleton.");
+    //        if (SelectedTriggerIndex.Instance != null)
+    //        {
+    //            SelectedTriggerIndex.Instance.DestroySelectedTriggerIndex();
+    //            // do i need coroutine here to wait till end of frame to make sure the object is destroyed
+
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Unable to destroy SelectedTriggerIndex Singleton.");
+    //        }
+
+    //        Debug.Log("Loading Home Scene");
+    //        SceneManager.LoadSceneAsync("HomeScene");
+    //        LoaderUtility.Deinitialize();
+    //        Debug.Log("Called LoaderUtility.Deinitialize()");
+    //        Destroy(gameObject);
+
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Unable to go home with Home button");
+    //    }
+    //}
 
     
     //public GameObject canvasUIPrefab;

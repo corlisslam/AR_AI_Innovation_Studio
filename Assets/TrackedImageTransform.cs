@@ -11,7 +11,6 @@ public class TrackedImageTransform : MonoBehaviour
     public Quaternion rotation;
     public string imageName;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         // Check if there is already an instance of this class

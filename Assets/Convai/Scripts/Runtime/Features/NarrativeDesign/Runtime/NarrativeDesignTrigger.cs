@@ -213,6 +213,7 @@ namespace Convai.Scripts.Narrative_Design
             {
                 NarrativeDesignManager narrativeDesignManager = convaiNPC.GetComponent<NarrativeDesignManager>();
                 if (narrativeDesignManager != null) availableTriggers = narrativeDesignManager.triggerDataList.Select(trigger => trigger.triggerName).ToList();
+                // This saves the list of triggernames to availableTriggers before runtime.
             }
         }
 
@@ -221,12 +222,13 @@ namespace Convai.Scripts.Narrative_Design
         /// </summary>
         public void InvokeSelectedTrigger()
         {
-            if (convaiNPC != null && availableTriggers != null && selectedTriggerIndex >= 0 && selectedTriggerIndex < availableTriggers.Count)
+            if (convaiNPC != null && availableTriggers != null && SelectedTriggerIndexSetter.Instance.selectedTriggerIndex >= 0 && SelectedTriggerIndexSetter.Instance.selectedTriggerIndex < availableTriggers.Count)
             {
-                string selectedTriggerName = availableTriggers[selectedTriggerIndex];
+                string selectedTriggerName = availableTriggers[SelectedTriggerIndexSetter.Instance.selectedTriggerIndex];
+                Debug.Log("selectedTriggerName: " + selectedTriggerName);
                 ConvaiNPCManager.Instance.SetActiveConvaiNPC(convaiNPC);
                 convaiNPC.TriggerEvent(selectedTriggerName);
-                Debug.Log("Called trigger");
+                Debug.Log("Called trigger with selectedTriggerIndex: " + SelectedTriggerIndexSetter.Instance.selectedTriggerIndex);
             }
         }
     }

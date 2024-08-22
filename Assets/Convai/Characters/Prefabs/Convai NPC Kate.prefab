@@ -365,48 +365,80 @@ MonoBehaviour:
     onSectionEnd:
       m_PersistentCalls:
         m_Calls: []
+  - id: 9273d38a-5fe6-11ef-bc80-42010a7be011
+    onSectionStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onSectionEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: d4602b6c-5fec-11ef-866b-42010a7be011
+    onSectionStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onSectionEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: 15f8b334-5ff0-11ef-bf9c-42010a7be011
+    onSectionStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onSectionEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: 8dd273a0-5fef-11ef-b25d-42010a7be011
+    onSectionStart:
+      m_PersistentCalls:
+        m_Calls: []
+    onSectionEnd:
+      m_PersistentCalls:
+        m_Calls: []
   sectionDataList:
   - sectionId: ab7957fe-4931-11ef-8ea1-42010a7be011
-    sectionName: End
+    sectionName: End 1
     behaviorTreeConstants: 
-    objective: '<speak>Thanks for joining the tour, I hope it has been informative.
-      Enjoy the rest of your time at the Innovation Studio.  Do you have any questions
-      for me? Feel free to ask them. If you would like to restart the tour, let me
-      know.</speak>
-
-      If the user has any questions, answer the user''s questions.'
+    objective: "<speak>I hope you learned about what a quantum computer is. You can
+      scan a different QR code to more about quantum computers. Do you have any questions
+      for me? \n\nIf you would like to restart the tour, let me know. Otherwise,
+      enjoy the rest of your time at the Innovation Studio. </speak>\nIf the user
+      has any questions, answer the user's questions."
     characterId: b039816a-465c-11ef-8fb9-42010a7be011
   - sectionId: 83392fd2-4939-11ef-8332-42010a7be011
-    sectionName: Welcome
+    sectionName: Intro 1
     behaviorTreeConstants: 
     objective: <speak> Welcome to IBM's Innovation Studio. I am Kate, your host for
-      the Quantum Computer tour. Would you like to take the tour? </speak>
+      the Quantum Computer tour. Would you like to take the tour? You can tell me
+      to end the tour at any point. </speak>
     characterId: b039816a-465c-11ef-8fb9-42010a7be011
   - sectionId: 7aabd662-4934-11ef-b8fa-42010a7be011
-    sectionName: Tour part 3 What Are Qubits?
+    sectionName: Tour part 1.3 What Are Qubits?
     behaviorTreeConstants: 
-    objective: "<speak> Quantum computers aim to create higher dimensional Hilbert
-      spaces, which enable the solving of problems that classical computers cannot
-      address. Qubits, the fundamental units of information in quantum computing,
-      can represent both 0 and 1 simultaneously through a phenomenon known as superposition.
-      These qubits are manipulated through specially designed circuits, analogous
-      to classical circuits, using quantum gates that control their state and interactions.\n\nIn
-      a quantum computer, gates perform operations such as putting qubits in superposition
-      or entangling them with other qubits. This manipulation is key to harnessing
-      the unique properties of qubits for computation. By passing through these quantum
-      gates, qubits interact in ways that leverage quantum phenomena to perform complex
-      calculations.\n\nOne significant advantage of quantum computing is its exponential
-      growth in computational power. As more qubits are added, the processing capability
-      increases exponentially (2^n, where n is the number of qubits). This exponential
-      increase allows quantum computers to tackle problems and perform calculations
-      far beyond the reach of classical computers, demonstrating their potential
-      for transformative computational advancements. \n\nDo you have any questions?
+    objective: '<speak> Quantum computers create higher dimensional spaces to solve
+      problems classical computers can''t. Qubits, the basic units of quantum computing,
+      can represent both 0 and 1 at the same time through superposition. These qubits
+      are manipulated by quantum gates, which control their state and interactions.
+
+
+      Quantum
+      gates perform operations like putting qubits in superposition or entangling
+      them, enabling complex calculations by leveraging quantum phenomena.
+
+
+      The
+      power of quantum computing grows exponentially with more qubits, allowing it
+      to tackle problems beyond classical computing.
+
+
+      Do you have any questions?
       Please let me know if you would like to proceed to the next section of the
-      tour, the previous section of the tour, or end the tour. </speak>\n If the
-      user wants to repeat this section, restart this section again.\n"
+      tour or the previous section.</speak>
+
+      If the user has any questions,
+      answer them. If the user wants to repeat this section, restart this section
+      again.'
     characterId: b039816a-465c-11ef-8fb9-42010a7be011
   - sectionId: 7ffe5166-492b-11ef-8332-42010a7be011
-    sectionName: Tour part 1 Intro
+    sectionName: Tour part 1.1 Intro
     behaviorTreeConstants: 
     objective: '<speak> Great let''s begin!  So what you can see here is a quantum
       computer. In a real life scenario, you would have a classical computer connected
@@ -423,43 +455,112 @@ MonoBehaviour:
 
       Do
       you have any questions? Please let me know if you would like to proceed to
-      the next section of the tour or end the tour.
+      the next section of the tour.
 
       </speak>
 
-      If the
-      user has any questions, answer them. If the user wants to repeat this section,
-      restart this section again.'
+      If the user has any questions,
+      answer them. If the user wants to repeat this section, restart this section
+      again.'
     characterId: b039816a-465c-11ef-8fb9-42010a7be011
   - sectionId: 82ea732c-4931-11ef-92b9-42010a7be011
-    sectionName: Tour part 2 Cooling
+    sectionName: Tour part 1.2 Cooling
     behaviorTreeConstants: 
-    objective: "<speak> Cooling the qubits to this temperature removes noise and
-      allows them to function at a quantum mechanical level. The loops and design
-      you see here are part of a demo, not the actual design, as IBM doesn't reveal
-      its proprietary designs. Helium-3 and Helium-4 gasses run through the system,
-      expanding and compressing to achieve cooling. Each level of the refrigerator
-      has a specific temperature, getting cooler as the gas moves down, eventually
-      reaching near absolute zero. \n\nThe most crucial part is the quantum processor
-      at the bottom, where the qubits are stored and operations occur. In practice,
-      you would submit quantum circuits via a classical computer, sending microwave
-      signals down to the quantum processor, which performs the operations at nearly
-      absolute zero and sends the results back up for you to read on your system.\n\nOnce
-      the operations are performed on the qubits, the results travel back up through
-      the system and are read on the classical computer. This entire process enables
-      the quantum computer to perform complex calculations by maintaining the qubits
-      in a state where they can function at a quantum mechanical level. \n\nDo you
-      have any questions? Please let me know if you would like to proceed to the
-      next section of the tour, the previous section of the tour, or end the tour.
-      </speak>\nIf the user has any questions, answer them. If the user wants to
-      repeat this section, restart this section again.\n"
+    objective: '<speak> Cooling the qubits removes noise, allowing them to function
+      at a quantum level. The design here is a demo; IBM''s actual designs are proprietary.
+      Helium-3 and Helium-4 gases flow through the system, cooling each level to
+      near absolute zero.
+
+
+      At the bottom is the quantum processor, where qubits
+      are stored and operations happen. You submit circuits via a classical computer,
+      which sends microwave signals to the processor to perform operations at near
+      absolute zero. The results are then sent back to your system.
+
+
+      This
+      process lets quantum computers perform complex calculations while keeping qubits
+      in a quantum state.
+
+
+      Do you have any questions? Please let me know if
+      you would like to proceed to the next section of the tour or go back to the
+      previous section. </speak>
+
+      If the user has any questions, answer them.
+      If the user wants to repeat this section, restart this section again.
+
+'
+    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+  - sectionId: 9273d38a-5fe6-11ef-bc80-42010a7be011
+    sectionName: Intro 2
+    behaviorTreeConstants: 
+    objective: '<speak>Now that you understand what quantum computers are, let''s
+      talk about the types of problems a quantum computer can solve. Can you try
+      to name one of those problems? Let me know when you want to proceed to the
+      next section or end the tour at anytime. </speak>
+
+
+      If the user gives
+      an answer to the question of what types of problems a quantum computer can
+      solve, tell them if the answer is correct or not.  If the user has any questions,
+      answer them. If the user wants to repeat this section, restart this section
+      again.
+
+'
+    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+  - sectionId: d4602b6c-5fec-11ef-866b-42010a7be011
+    sectionName: Tour part 2.1 Problem 1
+    behaviorTreeConstants: 
+    objective: "<speak>There are three categories of problems that quantum computers
+      can solve. The first one is optimization problems, which are anything that
+      requires hundreds of parameters. \n\nFor example, Exxon Mobil transports liquid
+      nitrogen gas around the world. The delivery needs to be done on time while
+      factoring in different parameters such as the number of ships available, the
+      number of ports available for different countries and the number of employees
+      available on that day. On top of that there are things that you can't accurately
+      predict, such as if a ship is broken down, or if an employee is sick on a certain
+      day. There are many many combinations of these parameters to consider and a
+      quantum computer is able to look at all those combinations to choose the best
+      one to make sure deliveries are done on time.\n\nDo you have any questions?
+      Please let me know if you would like to proceed to the next section of the
+      tour.</speak> \n\nIf the user has any questions, answer them. If the user wants
+      to repeat this section, restart this section again."
+    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+  - sectionId: 15f8b334-5ff0-11ef-bf9c-42010a7be011
+    sectionName: End 2
+    behaviorTreeConstants: 
+    objective: "<speak>I hope you learned about the applications of quantum computers.
+      As you go around the Innovation Studio, you will see different QR codes. Use
+      the app to scan them to see more AR content. Do you have any questions for
+      me? \n\nIf you would like to restart the tour, let me know. Otherwise, enjoy
+      the rest of your time at the Innovation Studio. </speak>\nIf the user has any
+      questions, answer the user's questions."
+    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+  - sectionId: 8dd273a0-5fef-11ef-b25d-42010a7be011
+    sectionName: Tour part 2.2 Problem 2 and 3
+    behaviorTreeConstants: 
+    objective: "<speak>The second set of problems are simulation problems, which
+      is anything to do with simulating molecules. For instance, it could be simulating
+      the coffee molecules, which requires the order of 10 to 49 to solve. With a
+      quantum computer, you can simulate the coffee molecules using only 160 qubits.
+      \n\nFinally, quantum computers can be used to develop machine learning algorithms,
+      as they require a lot of computing power. \n\nDo you have any questions? Please
+      let me know if you would like to proceed to the next section of the tour or
+      the previous section..</speak>\n\nIf the user has any questions, answer them.
+      If the user wants to repeat this section, restart this section again.\n"
     characterId: b039816a-465c-11ef-8fb9-42010a7be011
   triggerDataList:
-  - triggerId: 292afab0-4ae8-11ef-b847-42010a7be011
-    triggerName: Start
+  - triggerId: ' 292afab0-4ae8-11ef-b847-42010a7be011'
+    triggerName: Trigger1
     triggerMessage: The user wants to start the tour.
-    destinationSection: 83392fd2-4939-11ef-8332-42010a7be011
-    characterId: b039816a-465c-11ef-8fb9-42010a7be011
+    destinationSection: Intro1
+    characterId: 
+  - triggerId: bbccd7c2-5ff0-11ef-9de2-42010a7be011
+    triggerName: Trigger2
+    triggerMessage: The user wants to start the tour.
+    destinationSection: Intro2
+    characterId: 
 --- !u!114 &2841665669233070404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,7 +576,8 @@ MonoBehaviour:
   convaiNPC: {fileID: 669559227074404804}
   selectedTriggerIndex: 0
   availableTriggers:
-  - Start
+  - Trigger1
+  - Trigger2
   onTriggerEvent:
     m_PersistentCalls:
       m_Calls: []
