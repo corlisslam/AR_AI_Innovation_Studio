@@ -214,9 +214,11 @@ namespace Convai.Scripts.Utils
         private void MicrophoneTestControllerOnRecordCompleted()
         {
             _recordSystemStatusText.text = "Playing...";
-            _buttonImage.color = Color.green;
+            //_buttonImage.color = Color.green;
+            _buttonImage.color = new Color(0.0118f, 0.1333f, 0.4431f);
             _buttonText.text = "Rec";
-            _buttonText.color = new Color(0.14f, 0.14f, 0.14f);
+            //_buttonText.color = new Color(0.14f, 0.14f, 0.14f);
+            _buttonText.color = new Color(1, 1, 1);
         }
 
         /// <summary>

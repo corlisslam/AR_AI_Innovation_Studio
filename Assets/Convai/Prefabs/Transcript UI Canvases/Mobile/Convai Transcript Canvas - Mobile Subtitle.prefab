@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6067273614406367693}
-  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -109,7 +108,6 @@ RectTransform:
   m_Children:
   - {fileID: 6265522854406429570}
   m_Father: {fileID: 7755362447371219142}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -229,7 +227,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 622465688614817061}
-  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -305,7 +302,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 622465688614817061}
-  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -342,8 +338,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Settings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 256f75d06e3464e73b648c91bc57d49e, type: 2}
+  m_sharedMaterial: {fileID: 7553927185068849426, guid: 256f75d06e3464e73b648c91bc57d49e,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -445,7 +442,6 @@ RectTransform:
   - {fileID: 7951912356940638058}
   - {fileID: 5561063344305118823}
   m_Father: {fileID: 7755362447371219142}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -601,6 +597,17 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2398883729847027657, guid: 1adcb97c9f11ce44f9a7368a0bbdde81,
+        type: 3}
+      propertyPath: m_Name
+      value: IBM Logo
+      objectReference: {fileID: 0}
+    - target: {fileID: 2439808493641424662, guid: 1adcb97c9f11ce44f9a7368a0bbdde81,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 155c6c3158531464183f14fafda2ac11,
+        type: 3}
     - target: {fileID: 3081664865783353665, guid: 1adcb97c9f11ce44f9a7368a0bbdde81,
         type: 3}
       propertyPath: m_Name
@@ -726,6 +733,23 @@ PrefabInstance:
       propertyPath: m_margin.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3081664866617684432, guid: 1adcb97c9f11ce44f9a7368a0bbdde81,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 256f75d06e3464e73b648c91bc57d49e,
+        type: 2}
+    - target: {fileID: 3081664866617684432, guid: 1adcb97c9f11ce44f9a7368a0bbdde81,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7553927185068849426, guid: 256f75d06e3464e73b648c91bc57d49e,
+        type: 2}
+    - target: {fileID: 3081664866617684432, guid: 1adcb97c9f11ce44f9a7368a0bbdde81,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3081664866617684435, guid: 1adcb97c9f11ce44f9a7368a0bbdde81,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -824,7 +848,7 @@ PrefabInstance:
     - target: {fileID: 6646326142977666180, guid: 1adcb97c9f11ce44f9a7368a0bbdde81,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 135.54169
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6646326142977666180, guid: 1adcb97c9f11ce44f9a7368a0bbdde81,
         type: 3}

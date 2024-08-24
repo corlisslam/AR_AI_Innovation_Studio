@@ -122,51 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &23133742
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 23133744}
-  - component: {fileID: 23133743}
-  m_Layer: 0
-  m_Name: Scene Manager Singleton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &23133743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 23133742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f7fd7c8cfab4c8f8038653b11a3d38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npc: {fileID: 0}
---- !u!4 &23133744
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 23133742}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &587307769
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,6 +589,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 675525407012467558, guid: 418912954873d2341958d83aa22c2e8d,
         type: 3}
+      propertyPath: chatBoxPrefab
+      value: 
+      objectReference: {fileID: 935179711874531315, guid: d8061b9ccae9b5549b1bf7320ee6db57,
+        type: 3}
+    - target: {fileID: 675525407012467558, guid: 418912954873d2341958d83aa22c2e8d,
+        type: 3}
       propertyPath: playerTextColor.b
       value: 0.44313726
       objectReference: {fileID: 0}
@@ -720,6 +681,22 @@ PrefabInstance:
       value: 0.011764706
       objectReference: {fileID: 0}
     - target: {fileID: 1238316384555628405, guid: 418912954873d2341958d83aa22c2e8d,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665064247573118624, guid: 418912954873d2341958d83aa22c2e8d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2724519434473478061, guid: 418912954873d2341958d83aa22c2e8d,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 256f75d06e3464e73b648c91bc57d49e,
+        type: 2}
+    - target: {fileID: 2724519434473478061, guid: 418912954873d2341958d83aa22c2e8d,
         type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 1
@@ -848,6 +825,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 0.039215688
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071546595863533116, guid: 418912954873d2341958d83aa22c2e8d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5377114853895328979, guid: 418912954873d2341958d83aa22c2e8d,
         type: 3}
@@ -1216,4 +1198,3 @@ SceneRoots:
   - {fileID: 1092099233}
   - {fileID: 587307772}
   - {fileID: 1548482402}
-  - {fileID: 23133744}

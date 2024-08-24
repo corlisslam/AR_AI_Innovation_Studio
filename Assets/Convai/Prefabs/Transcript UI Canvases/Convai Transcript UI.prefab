@@ -51,12 +51,9 @@ MonoBehaviour:
     type: 3}
   questionAnswerPrefab: {fileID: 3579091036758702676, guid: a39998bccd08b1a42825de3cebc0858e,
     type: 3}
-  characters:
-  - characterGameObject: {fileID: 0}
-    characterName: Missy
-    characterTextColor: {r: 1, g: 0, b: 0, a: 1}
+  characters: []
   playerName: Player
-  playerTextColor: {r: 0.16216493, g: 1, b: 0, a: 1}
+  playerTextColor: {r: 0.011764706, g: 0.13333334, b: 0.44313726, a: 1}
 --- !u!114 &7122311387437513675
 MonoBehaviour:
   m_ObjectHideFlags: 0
