@@ -55,7 +55,7 @@ public class UIController : MonoBehaviour
 
     private IEnumerator CleanupCharacterTourScene()
     {
-        GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("CharacterTour");
+        GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("Character");
         foreach (GameObject obj in objectsToDestroy)
         {
             Debug.Log("Destroying object.");

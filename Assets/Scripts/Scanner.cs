@@ -170,12 +170,12 @@ public class Scanner : MonoBehaviour
 
     private IEnumerator CleanupAndUnloadScene(int buildIndex)
     {
-        GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("CharacterTour");
+        GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("Character");
         foreach (GameObject obj in objectsToDestroy)
         {
-            Debug.Log("Destroying object tagged CharacterTour");
+            Debug.Log("Destroying object tagged Character.");
             Destroy(obj);
-            Debug.Log("Destroyed an object tagged CharacterTour.");
+            Debug.Log("Destroyed an object tagged Character.");
 
             // Wait until the object is null (i.e., fully destroyed)
             yield return new WaitUntil(() => obj == null);

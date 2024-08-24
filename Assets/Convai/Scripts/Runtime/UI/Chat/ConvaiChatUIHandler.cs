@@ -176,6 +176,7 @@ namespace Convai.Scripts.Utils
             _currentUIImplementation = GetChatUIByUIType(UISaveLoadSystem.Instance.UIType);
             SetUIType(UISaveLoadSystem.Instance.UIType);
             _currentUIImplementation.ActivateUI();
+            Debug.Log("UI Loaded and Activated");
         }
 
         /// <summary>

@@ -172,7 +172,12 @@ namespace Convai.Scripts
 
             ConvaiNPCManager.Instance.OnActiveNPCChanged += HandleActiveNPCChanged;
 
-            if (_convaiChatUIHandler != null) _convaiChatUIHandler.UpdateCharacterList();
+            //if (_convaiChatUIHandler != null) _convaiChatUIHandler.UpdateCharacterList();
+            if (_convaiChatUIHandler != null) 
+            {
+                _convaiChatUIHandler.UpdateCharacterList();
+                Debug.Log("Character list updated.");
+            }
         }
 
         private void OnDestroy()
@@ -278,7 +283,12 @@ namespace Convai.Scripts
 
         private void HandleAudioTranscriptAvailable(string transcript)
         {
-            if (isCharacterActive) _convaiChatUIHandler.SendCharacterText(characterName, transcript);
+            //if (isCharacterActive) _convaiChatUIHandler.SendCharacterText(characterName, transcript);
+            if (isCharacterActive) 
+            {
+                Debug.Log($"Sending transcript to chat UI: {transcript}");
+                _convaiChatUIHandler.SendCharacterText(characterName, transcript);
+            }
         }
 
         /// <summary>
