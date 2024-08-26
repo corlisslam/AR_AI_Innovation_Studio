@@ -20,6 +20,12 @@ public class ModelSpawner : MonoBehaviour
                 instantiatedPrefab.transform.SetParent(null, true);
             }
         }
+        //NotificationSystemHandler.Instance.NotificationRequest(NotificationType.ModelsHaveSpawned);
+    }
+
+    void Start()
+    {
+        NotificationSystemHandler.Instance.NotificationRequest(NotificationType.ModelsHaveSpawned);
     }
 
 }

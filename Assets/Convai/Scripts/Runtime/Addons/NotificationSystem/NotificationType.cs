@@ -37,5 +37,10 @@ public enum NotificationType
     /// <summary>
     /// Aug 26 Indicates tour has started and to restart the tour, click restart button
     /// <summary>
-    TourHasStarted
+    TourHasStarted,
+
+    /// <summary>
+    /// Aug 26 Indicates models have spawned and to restart the tour, click restart button
+    /// <summary>
+    ModelsHaveSpawned
 }
