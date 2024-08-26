@@ -33,4 +33,9 @@ public enum NotificationType
     ///   Indicates that no API key was found.
     /// </summary>
     APIKeyNotFound,
+
+    /// <summary>
+    /// Aug 26 Indicates tour has started and to restart the tour, click restart button
+    /// <summary>
+    TourHasStarted
 }

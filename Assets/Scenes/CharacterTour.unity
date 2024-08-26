@@ -1028,6 +1028,16 @@ PrefabInstance:
       propertyPath: visionConeAngle
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 7022489276076052857, guid: 418912954873d2341958d83aa22c2e8d,
+        type: 3}
+      propertyPath: _activeNotificationPos.y
+      value: 650
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022489276076052857, guid: 418912954873d2341958d83aa22c2e8d,
+        type: 3}
+      propertyPath: _deactivatedNotificationPos.y
+      value: 650
+      objectReference: {fileID: 0}
     - target: {fileID: 7489585283873082086, guid: 418912954873d2341958d83aa22c2e8d,
         type: 3}
       propertyPath: m_Color.b

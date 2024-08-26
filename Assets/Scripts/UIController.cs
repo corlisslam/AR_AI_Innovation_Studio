@@ -18,7 +18,7 @@ public class UIController : MonoBehaviour
     public GameObject canvasUIPrefab;
     private GameObject instantiatedCanvasUI;
 
-    public Button exitButton;
+    public Button restartButton;
 
     void Awake()
     {
@@ -37,18 +37,18 @@ public class UIController : MonoBehaviour
         Debug.Log("Canvas UI instantiated, but all buttons disabled.");
         Debug.Log("UI that is assigned to instantiatedCanvasUI is " + instantiatedCanvasUI.name);
 
-        exitButton = instantiatedCanvasUI.transform.Find("ExitButton").GetComponent<Button>();
+        restartButton = instantiatedCanvasUI.transform.Find("RestartButton").GetComponent<Button>();
 
-        if (exitButton != null)
+        if (restartButton != null)
         {
-            exitButton.onClick.AddListener(ExitGame);
-            exitButton.gameObject.SetActive(true);
-            Debug.Log("Listener added to Exit button and button is initialized");
+            restartButton.onClick.AddListener(RestartGame);
+            restartButton.gameObject.SetActive(true);
+            Debug.Log("Listener added to Restart button and button is initialized");
         }
 
         else
         {
-            Debug.Log("exitButton cannot be found.");
+            Debug.Log("restartButton cannot be found.");
         }
     }
 
@@ -67,13 +67,13 @@ public class UIController : MonoBehaviour
         
     }
 
-    private IEnumerator ExitGameCoroutine(float timeout)
+    private IEnumerator RestartGameCoroutine(float timeout)
     {
-        // Deactivate the exit button
-        if (exitButton != null)
+        // Deactivate the restart button
+        if (restartButton != null)
         {
-            exitButton.gameObject.SetActive(false);
-            Debug.Log("Exit button is deactivated.");
+            restartButton.gameObject.SetActive(false);
+            Debug.Log("Restart button is deactivated.");
 
             // Start cleaning up the CharacterTour scene
             Debug.Log("Starting CleanupCharacterTourScene Coroutine.");
@@ -131,7 +131,7 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Exit button is null. Unable to exit.");
+            Debug.LogError("Restart button is null. Unable to restart.");
         }
     }
 
@@ -142,11 +142,11 @@ public class UIController : MonoBehaviour
         // Add error handling, fallback logic, or retry logic here
     }
 
-    private void ExitGame()
+    private void RestartGame()
     {
         PlayerPrefs.SetString("PlayerName", "Visitor");
         
-        StartCoroutine(ExitGameCoroutine(10f));
+        StartCoroutine(RestartGameCoroutine(10f));
     }
 
 

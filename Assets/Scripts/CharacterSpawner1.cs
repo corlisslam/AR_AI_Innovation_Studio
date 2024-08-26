@@ -211,6 +211,7 @@ public class CharacterSpawner1 : MonoBehaviour
     private void Start()
     {
         GameObject character = SpawnCharacter();
+        NotificationSystemHandler.Instance.NotificationRequest(NotificationType.TourHasStarted);
         //SceneManagerSingleton.Instance.SetNPC(character);
     }
 
