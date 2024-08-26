@@ -4,29 +4,48 @@ using UnityEngine.SceneManagement;
 using UnityEngine.XR.Management;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
+using TMPro;
 
 public class HomeController : MonoBehaviour
 {
-    public GameObject homeUIPrefab;
-    private GameObject instantiatedHomeUI;
-    private Button cameraButton;
+    [SerializeField] private GameObject homePageButtonGameObject;
+    private Button homePageButton;
+
+    [SerializeField] private TMP_InputField homePageInputField;
+    private string playerName;
 
     private void Awake()
     {
-        instantiatedHomeUI = Instantiate(homeUIPrefab);
-        Debug.Log("Home UI instantiated, start button showing.");
-        Debug.Log("UI that is assigned to instantiatedHomeUI is " + instantiatedHomeUI.name);
-
-        cameraButton = instantiatedHomeUI.transform.Find("CameraButton").GetComponent<Button>();
-
-        cameraButton.onClick.AddListener(OnCameraButtonPressed);
+        if (homePageButtonGameObject != null)
+        {
+            homePageButton = homePageButtonGameObject.GetComponent<Button>();
+            homePageButton.onClick.AddListener(OnScanImageButtonPressed);
+        }
+        else
+        {
+            Debug.LogError("homePageButtonGameObject is not assigned!");
+        }
     }
 
-    public void OnCameraButtonPressed()
+    public void OnScanImageButtonPressed()
     {
-        Debug.Log("Loading MainScanner scene");
-        LoaderUtility.Initialize();
-        SceneManager.LoadScene("MainScanner");
+        Debug.Log("SCAN IMAGE pressed");
+
+        playerName = homePageInputField.text;
+
+        if (!string.IsNullOrEmpty(playerName))
+        {
+            Debug.Log("Player Name Entered: " + playerName);
+            PlayerPrefs.SetString("PlayerName", playerName);
+        }
+        else
+        {
+            Debug.LogError("Player name is empty!");
+            PlayerPrefs.SetString("PlayerName", "Visitor");
+            Debug.Log("Player name set to Visitor.");
+        }
+
+        LoadScene();
         //SceneManager.LoadScene("MainScene");
 
         //    StartCoroutine(InitializeLoaderAndLoadScene());
@@ -53,6 +72,13 @@ public class HomeController : MonoBehaviour
 
         //    // Load the AR scene
         //    SceneManager.LoadScene("MainScene");
+    }
+
+    public void LoadScene()
+    {
+        Debug.Log("Loading MainScanner scene");
+        LoaderUtility.Initialize();
+        SceneManager.LoadScene("MainScanner");
     }
 }
  

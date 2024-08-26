@@ -144,6 +144,8 @@ public class UIController : MonoBehaviour
 
     private void ExitGame()
     {
+        PlayerPrefs.SetString("PlayerName", "Visitor");
+        
         StartCoroutine(ExitGameCoroutine(10f));
     }
 
