@@ -388,7 +388,7 @@ PrefabInstance:
     - target: {fileID: 2512387470528047737, guid: 7512e74af1a1644cfaf7c467a459f761,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2512387470528047737, guid: 7512e74af1a1644cfaf7c467a459f761,
         type: 3}
@@ -819,7 +819,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasUIPrefab: {fileID: 3180651589512012025, guid: bb858fb646c52414f888cc53d9268d25,
     type: 3}
-  exitButton: {fileID: 0}
+  restartButton: {fileID: 0}
 --- !u!1 &1393388656
 GameObject:
   m_ObjectHideFlags: 0
