@@ -30,6 +30,8 @@ namespace Convai.Scripts.Utils
             _textObject = _chatPanel.transform.GetChild(0).gameObject;
             _chatScrollRect = UIInstance.transform.GetChild(0).GetChild(0).GetComponent<ScrollRect>();
             UIInstance.SetActive(false);
+            _isFirstMessage = true;
+            _currentSpeaker = Speaker.Player;
         }
 
         /// <summary>
