@@ -20,13 +20,26 @@ public class Scanner : MonoBehaviour
 
     //private ARTrackedImage currentTrackedImage; // To store the currently tracked image
 
-    private string lastAdditiveScene = null;
-    private string lastTrackedReferenceImageName = null;
+    public string lastAdditiveScene = null;
+    public string lastTrackedReferenceImageName = null;
 
     //public UIController uiController;
 
+    public static Scanner Instance { get; set; }
+
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Persist across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Destroy any duplicate instances
+            return;
+        }
+
         _trackedImageManager = GetComponent<ARTrackedImageManager>();
         _arSession = FindObjectOfType<ARSession>();
         arCamera = Camera.main;
@@ -156,8 +169,8 @@ public class Scanner : MonoBehaviour
 
     }
 
-    private IEnumerator RestartARSession()
-{
+    public IEnumerator RestartARSession()
+    {
         // Reset the AR session
         if (_arSession != null)
         {
@@ -166,10 +179,27 @@ public class Scanner : MonoBehaviour
             yield return new WaitForSeconds(1f); // Wait a second for the session to reset
             Debug.Log("AR session restarted.");
         }
+
+        SetRestartAndExitButtonActive();
     }
 
-    private IEnumerator CleanupAndUnloadScene(int buildIndex)
+    private void SetRestartAndExitButtonActive()
     {
+        UIController.Instance.restartButton.gameObject.SetActive(true);
+        UIController.Instance.exitButton.gameObject.SetActive(true);
+    }
+
+    private void SetRestartAndExitButtonInactive()
+    {
+        UIController.Instance.restartButton.gameObject.SetActive(false);
+        UIController.Instance.exitButton.gameObject.SetActive(false);
+    }
+
+
+    public IEnumerator CleanupAndUnloadScene(int buildIndex)
+    {
+        SetRestartAndExitButtonInactive();
+
         GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("Character");
         foreach (GameObject obj in objectsToDestroy)
         {

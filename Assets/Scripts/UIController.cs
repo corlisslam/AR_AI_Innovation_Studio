@@ -13,11 +13,12 @@ public class UIController : MonoBehaviour
 {
 
     // Singleton instance
-    public static UIController Instance { get; private set; }
+    public static UIController Instance { get; set; }
 
     public GameObject canvasUIPrefab;
     private GameObject instantiatedCanvasUI;
 
+    public Button exitButton;
     public Button restartButton;
 
     void Awake()
@@ -37,13 +38,25 @@ public class UIController : MonoBehaviour
         Debug.Log("Canvas UI instantiated, but all buttons disabled.");
         Debug.Log("UI that is assigned to instantiatedCanvasUI is " + instantiatedCanvasUI.name);
 
+        exitButton = instantiatedCanvasUI.transform.Find("ExitButton").GetComponent<Button>();
         restartButton = instantiatedCanvasUI.transform.Find("RestartButton").GetComponent<Button>();
+
+        if (exitButton != null)
+        {
+            exitButton.onClick.AddListener(ExitGame);
+            exitButton.gameObject.SetActive(true);
+            Debug.Log("Listener added to exitbutton and button is initialized.");
+        }
+
+        else
+        {
+            Debug.Log("exitButton cannot be found.");
+        }
 
         if (restartButton != null)
         {
-            restartButton.onClick.AddListener(RestartGame);
-            restartButton.gameObject.SetActive(true);
-            Debug.Log("Listener added to Restart button and button is initialized");
+            restartButton.onClick.AddListener(RestartScan);
+            Debug.Log("Listener added to restartButton.");
         }
 
         else
@@ -67,11 +80,39 @@ public class UIController : MonoBehaviour
         
     }
 
-    private IEnumerator RestartGameCoroutine(float timeout)
+    private void RestartScan()
     {
-        // Deactivate the restart button
-        if (restartButton != null)
+        Debug.Log($"lastAdditiveScene is: {Scanner.Instance.lastAdditiveScene}");
+        Debug.Log($"lastTrackedReferenceImageName is: {Scanner.Instance.lastTrackedReferenceImageName}");
+
+        if (Scanner.Instance.lastAdditiveScene == "CharacterTour")
         {
+            StartCoroutine(Scanner.Instance.CleanupAndUnloadScene(3));
+        }
+
+        else if (Scanner.Instance.lastAdditiveScene == "MainScene")
+        {
+            StartCoroutine(Scanner.Instance.CleanupAndUnloadScene(2));
+        }
+
+        Scanner.Instance.lastAdditiveScene = null;
+        Debug.Log("Set lastAdditiveScene to null.");
+
+        Scanner.Instance.lastTrackedReferenceImageName = null;
+        Debug.Log("Set lastTrackedReferenceImageName to null.");
+
+        StartCoroutine(Scanner.Instance.RestartARSession());
+    }
+
+
+    private IEnumerator ExitGameCoroutine(float timeout)
+    {
+        // Deactivate the exit button
+        if (exitButton != null && restartButton != null)
+        {
+            exitButton.gameObject.SetActive(false);
+            Debug.Log("Exit button is deactivated.");
+
             restartButton.gameObject.SetActive(false);
             Debug.Log("Restart button is deactivated.");
 
@@ -125,13 +166,18 @@ public class UIController : MonoBehaviour
             LoaderUtility.Deinitialize();
             Debug.Log("Called LoaderUtility.Deinitialize().");
 
+            // Destroy the Scanner/XR origin singleton after everything has completed
+            Destroy(Scanner.Instance.gameObject);
+            Debug.Log("Scanner's game object XR Origin is destroyed.");
+
             // Destroy the UIController after everything has completed
             Destroy(gameObject);
             Debug.Log("UIController destroyed.");
+
         }
         else
         {
-            Debug.LogError("Restart button is null. Unable to restart.");
+            Debug.LogError("Exit button or restart button is null. Unable to exit.");
         }
     }
 
@@ -142,11 +188,11 @@ public class UIController : MonoBehaviour
         // Add error handling, fallback logic, or retry logic here
     }
 
-    private void RestartGame()
+    private void ExitGame()
     {
         PlayerPrefs.SetString("PlayerName", "Visitor");
         
-        StartCoroutine(RestartGameCoroutine(10f));
+        StartCoroutine(ExitGameCoroutine(10f));
     }
 
 
