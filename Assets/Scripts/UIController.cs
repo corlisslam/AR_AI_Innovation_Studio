@@ -36,50 +36,40 @@ public class UIController : MonoBehaviour
             return;
         }
 
-        _instantiatedCanvasUI = Instantiate(CanvasUIPrefab);
-        Debug.Log("CanvasUIPrefab instantiated, but all buttons disabled.");
-        Debug.Log("UI that is assigned to instantiatedCanvasUI is " + _instantiatedCanvasUI.name);
-
-        ExitButton = _instantiatedCanvasUI.transform.Find("ExitButton").GetComponent<Button>();
-        RestartButton = _instantiatedCanvasUI.transform.Find("RestartButton").GetComponent<Button>();
-
-        if (ExitButton != null)
+        if (CanvasUIPrefab != null)
         {
-            ExitButton.onClick.AddListener(ExitGame);
-            ExitButton.gameObject.SetActive(true);
-            Debug.Log("Listener added to ExitButton and button is initialized.");
+            _instantiatedCanvasUI = Instantiate(CanvasUIPrefab);
+            Debug.Log("CanvasUIPrefab instantiated successfully.");
+            Debug.Log("UI that is assigned to instantiatedCanvasUI is " + _instantiatedCanvasUI.name);
         }
-
         else
         {
-            Debug.Log("ExitButton cannot be found.");
+            Debug.LogError("CanvasUIPrefab is not assigned. Please assign it in the inspector.");
         }
 
-        if (RestartButton != null)
-        {
-            RestartButton.onClick.AddListener(RestartScan);
-            Debug.Log("Listener added to RestartButton.");
-        }
-
-        else
-        {
-            Debug.Log("RestartButton cannot be found.");
-        }
+        InitializeComponents();
     }
 
-
-    private IEnumerator CleanupCharacterTourScene()
+    private void InitializeComponents()
     {
-        GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("Character");
-        foreach (GameObject obj in objectsToDestroy)
+        ExitButton = _instantiatedCanvasUI.transform.Find("ExitButton").GetComponent<Button>();
+        if (ExitButton == null)
         {
-            Debug.Log("Destroying object.");
-            Destroy(obj);
-
-            // Wait until the object is null (i.e., fully destroyed)
-            yield return new WaitUntil(() => obj == null);
+            Debug.LogError("ExitButton cannot be found.");
+            return;
         }
-        
+        ExitButton.onClick.AddListener(ExitGame);
+        SetExitButtonActive();
+
+        RestartButton = _instantiatedCanvasUI.transform.Find("RestartButton").GetComponent<Button>();
+        if (RestartButton == null)
+        {
+            Debug.LogError("RestartButton cannot be found.");
+            return;
+        }
+        RestartButton.onClick.AddListener(RestartScan);
+        Debug.Log("Listener added to RestartButton.");
+
     }
 
     private void RestartScan()
@@ -87,15 +77,9 @@ public class UIController : MonoBehaviour
         Debug.Log($"LastAdditiveScene is: {Scanner.Instance.LastAdditiveScene}");
         Debug.Log($"LastTrackedReferenceImageName is: {Scanner.Instance.LastTrackedReferenceImageName}");
 
-        if (Scanner.Instance.LastAdditiveScene == "CharacterTour")
-        {
-            StartCoroutine(Scanner.Instance.CleanupAndUnloadScene(3));
-        }
+        int lastAdditiveSceneIndex = GetLastAdditiveSceneIndex(Scanner.Instance.LastAdditiveScene);
 
-        else if (Scanner.Instance.LastAdditiveScene == "MainScene")
-        {
-            StartCoroutine(Scanner.Instance.CleanupAndUnloadScene(2));
-        }
+        StartCoroutine(Scanner.Instance.CleanupAndUnloadScene(lastAdditiveSceneIndex));
 
         Scanner.Instance.LastAdditiveScene = null; // "rescanning" is restarting the AR session from fresh
         Debug.Log("Set LastAdditiveScene to null.");
@@ -106,94 +90,114 @@ public class UIController : MonoBehaviour
         StartCoroutine(Scanner.Instance.RestartARSession());
     }
 
-
-    private IEnumerator ExitGameCoroutine(float timeout)
+    private int GetLastAdditiveSceneIndex(string lastAdditiveScene)
     {
-        // Deactivate the exit button
-        if (ExitButton != null && RestartButton != null)
+        switch (lastAdditiveScene)
         {
-            ExitButton.gameObject.SetActive(false);
-            Debug.Log("ExitButton is deactivated.");
-
-            RestartButton.gameObject.SetActive(false);
-            Debug.Log("RestartButton is deactivated.");
-
-            // Start cleaning up the CharacterTour scene
-            Debug.Log("Starting CleanupCharacterTourScene Coroutine.");
-            yield return StartCoroutine(CleanupCharacterTourScene());
-
-            //should you add a coroutine to make sure all additive scenes are cleared?
-
-            // Destroy the SelectedTriggerIndex Singleton
-            Debug.Log("Destroying SelectedTriggerIndex Singleton.");
-            if (SelectedTriggerIndexSetter.Instance != null)
-            {
-                SelectedTriggerIndexSetter.Instance.DestroySelectedTriggerIndex();
-                yield return null;
-            }
-            else
-            {
-                Debug.Log("Unable to destroy SelectedTriggerIndex Singleton.");
-            }
-
-            // Load the home scene
-            Debug.Log("Loading Home Scene...");
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("HomeScene");
-
-            float elapsedTime = 0f;
-
-            // Wait for the scene to load or for the timeout
-            while (!asyncLoad.isDone)
-            {
-                // If the loading takes longer than the timeout, exit the loop
-                if (elapsedTime >= timeout)
-                {
-                    Debug.LogError("Scene loading timed out.");
-                    HandleSceneLoadFailure();
-                    yield break;
-                }
-
-                // Increment the elapsed time
-                elapsedTime += Time.deltaTime;
-
-                // Yield until the next frame
-                yield return null;
-            }
-            //yield return asyncLoad;  // Wait for the scene to fully load
-
-            // If the scene loads successfully
-            Debug.Log("Scene loaded successfully.");
-
-            // Deinitialize the loader utility after the scene loads
-            LoaderUtility.Deinitialize();
-            Debug.Log("Called LoaderUtility.Deinitialize().");
-
-            // Destroy the Scanner/XR origin singleton after everything has completed
-            Destroy(Scanner.Instance.gameObject);
-            Debug.Log("Scanner's game object XR Origin is destroyed.");
-
-            // Destroy the UIController after everything has completed
-            Destroy(gameObject);
-            Debug.Log("UIController destroyed.");
-
+            case "CharacterTour":
+                return 3;
+            case "MainScene":
+                return 2;
+            default:
+                return -1; // handle as needed later
         }
+    }
+
+    private void SetExitButtonActive()
+    {
+        ExitButton.gameObject.SetActive(true);
+        Debug.Log("ExitButton activated");
+    }
+
+    private void SetRestartButtonActive()
+    {
+        RestartButton.gameObject.SetActive(true);
+        Debug.Log("RestartButton activated");
+    }
+
+    private void SetRestartAndExitButtonInactive()
+    {
+        RestartButton.gameObject.SetActive(false);
+        ExitButton.gameObject.SetActive(false);
+        Debug.Log("ExitButton and RestartButton inactivated");
+    }
+
+    private IEnumerator ExitGameCoroutine()
+    {
+        bool loadSuccess = false;
+        yield return StartCoroutine(LoadHomeScene(10f, success => loadSuccess = success));
+
+        if (!loadSuccess)
+        {
+            Debug.LogError("Failed to load Home Scene. Exiting coroutine.");
+            SetExitButtonActive();
+            SetRestartButtonActive();
+            yield break;
+        }
+
+        yield return StartCoroutine(Scanner.Instance.CleanupCharacterTourScene());
+
+        Debug.Log("Destroying SelectedTriggerIndex Singleton.");
+        if (SelectedTriggerIndexSetter.Instance == null)
+        {
+            Debug.LogWarning("Unable to destroy SelectedTriggerIndex Singleton as SelectedTriggerIndexSetter.Instance is null.");
+        }
+
         else
         {
-            Debug.LogError("ExitButton or RestartButton is null. Unable to exit.");
+            SelectedTriggerIndexSetter.Instance.DestroySelectedTriggerIndex();
+            yield return null;
         }
+
+        LoaderUtility.Deinitialize();
+        Debug.Log("Called LoaderUtility.Deinitialize().");
+
+        Destroy(Scanner.Instance.gameObject);
+        Debug.Log("Scanner's game object XR Origin is destroyed.");
+
+        Destroy(gameObject);
+        Debug.Log("UIController destroyed.");
     }
 
-    private void HandleSceneLoadFailure()
+    private IEnumerator LoadHomeScene(float timeout, Action<bool> onComplete)
     {
-        // Handle what should happen if the scene fails to load
-        Debug.LogError("Failed to load Home Scene.");
-        // Add error handling, fallback logic, or retry logic here
+        Debug.Log("Loading Home Scene...");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("HomeScene");
+
+        float elapsedTime = 0f;
+        bool success = true;
+
+        while (!asyncLoad.isDone)
+        {
+            if (elapsedTime >= timeout)
+            {
+                Debug.LogError("Scene loading timed out.");
+                success = false;
+                break;
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        //yield return asyncLoad;  // Wait for the scene to fully load
+        if (success)
+        {
+            Debug.Log("Scene loaded successfully.");
+            PlayerPrefs.SetString("PlayerName", "Visitor");
+        }
+
+        onComplete?.Invoke(success);
     }
+
+    //private void HandleSceneLoadFailure()
+    //{
+    //    SetExitButtonActive();
+    //    SetRestartButtonActive();
+    //}
 
     private void ExitGame()
     {
-        PlayerPrefs.SetString("PlayerName", "Visitor");
-        
-        StartCoroutine(ExitGameCoroutine(10f));
+        SetRestartAndExitButtonInactive();
+        StartCoroutine(ExitGameCoroutine());
     }
 }

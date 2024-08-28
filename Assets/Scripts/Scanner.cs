@@ -3,7 +3,6 @@
 ///     Plus it is inherently tied to the AR tracking functionality so keeping it with XR origin game object keeps related functionality grouped together.
 /// </summary>
 
-//WITH PART1 and PART 2
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -226,8 +225,8 @@ public class Scanner : MonoBehaviour
         Debug.Log("Last additive scene unloaded");
     }
 
-    // Need to do this to clear npc character
-    private IEnumerator CleanupCharacterTourScene()
+    // Need to do call this coroutine to clear npc character
+    public IEnumerator CleanupCharacterTourScene()
     {
         GameObject[] objectsToDestroy = GameObject.FindGameObjectsWithTag("Character");
 
