@@ -1,8 +1,6 @@
 /// <summary>
-///     Scanner.cs is part of XR origin game object because allows for direct reference to XR origin game object components without
-///     needing to search for components across the scene. Plus it is inherently tied to the AR tracking functionality so keeping it
-///     with XR origin game object keeps related functionality grouped together. If Scanner.cs is in its own game object, referencing
-///     the ARTrackedImageManager component in XR origin is more costly performance wise because it requires Unity to search the entire scene.
+///     Scanner.cs is part of XR origin game object, allowing direct reference to XR origin game object components without the overhead of searching across the scene.
+///     Plus it is inherently tied to the AR tracking functionality so keeping it with XR origin game object keeps related functionality grouped together.
 /// </summary>
 
 //WITH PART1 and PART 2
@@ -19,59 +17,51 @@ public class Scanner : MonoBehaviour
     private ARTrackedImageManager _trackedImageManager;
     private Camera _arCamera;
     private ARSession _arSession;
-    //private Keyboard keyboard; // CAN DELETE AFTER TESTING
 
-    //private ARTrackedImage currentTrackedImage; // To store the currently tracked image
+    public string LastAdditiveScene = null; 
+    public string LastTrackedReferenceImageName = null;
 
-    public string LastAdditiveScene { get; set; } = null; 
-    public string LastTrackedReferenceImageName { get; set; } = null;
-
-    //public UIController uiController;
 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scenes
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject); // Destroy any duplicate instances
+            Destroy(gameObject); 
             return;
         }
 
+        InitializeComponents();
+    }
+
+    private void InitializeComponents()
+    {
         _trackedImageManager = GetComponent<ARTrackedImageManager>();
+
+        if (_trackedImageManager == null)
+        {
+            Debug.LogError("ARTrackedImageManager not found. Please attach it to the XR Origin game object.");
+        }
+
         _arSession = FindObjectOfType<ARSession>();
+        if (_arSession == null)
+        {
+            Debug.LogError("ARSession not found in the scene. Ensure an ARSession component is available.");
+        }
+
         _arCamera = Camera.main;
-        //keyboard = Keyboard.current; // Access the current keyboard device
 
         if (_arCamera == null)
         {
-            Debug.LogError("AR Camera not found. Make sure the Main Camera is tagged as MainCamera.");
+            Debug.LogError("AR Camera not found. Ensure the Main Camera is tagged as 'MainCamera'.");
         }
-        
     }
 
-    private void Update()
-    {
-        //if (keyboard.bKey.wasPressedThisFrame) 
-        //{
-        //    Debug.Log("B key was pressed.");
-        //    Debug.Log("CurrentAdditiveScene: " + lastAdditiveScene);
-        //    Debug.Log("Unloading additive scene: " + lastAdditiveScene);
-        //    //SceneManager.UnloadSceneAsync(lastAdditiveScene, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
-        //    Debug.Log("Additive scene unloaded");
 
-        //}
-
-        //if (keyboard.lKey.wasPressedThisFrame) //unload character tour scene with kekey
-        //{
-        //    Debug.Log("L key was pressed.");
-        //    StartCoroutine(CleanupAndUnloadScene(3));
-        //}
-    }
-    
     private void OnEnable()
     {
         _trackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
@@ -88,7 +78,6 @@ public class Scanner : MonoBehaviour
             Debug.Log("Tracked image added: " + trackedImage.referenceImage.name);
             Debug.Log("Last Additive Scene: " + LastAdditiveScene);
 
-            //Unload the last additive scene if it exists when a new tracked image is added
             if (ShouldUnloadLastScene(trackedImage))
             {
                 StartCoroutine(CleanupAndUnloadScene(GetSceneIndex(LastTrackedReferenceImageName)));
@@ -99,7 +88,6 @@ public class Scanner : MonoBehaviour
                 LoadSceneBasedOnTrackedImage(trackedImage);
                 SetRestartButtonActive();
             }
-
         }
     }
 
@@ -116,35 +104,52 @@ public class Scanner : MonoBehaviour
         Debug.Log($"lastTrackedReferenceImageName is: {LastTrackedReferenceImageName}");
         Debug.Log($"New tracked image's name is {imageName}, loading corresponding scene by calling LoadScene Coroutine");
 
-        int sceneNumber = GetSceneIndex(imageName);
-        string sceneName = GetSceneName(sceneNumber);
+        int sceneIndex = GetSceneIndex(imageName);
+        Debug.Log($"sceneIndex is: {sceneIndex}");
+        if (sceneIndex < 0)
+        {
+            Debug.LogWarning($"No scene associated with the tracked image: {imageName}");
+            return;
+        }
 
-        StartCoroutine(LoadScene(sceneNumber, sceneName, imageName));
+        string sceneName = GetSceneName(sceneIndex);
+        Debug.Log($"sceneName is: {sceneName}");
+        if (string.IsNullOrEmpty(sceneName))
+        {
+            Debug.LogError($"Scene index {sceneIndex} does not correspond to a valid scene name.");
+            return;
+        }
+
+        StartCoroutine(LoadScene(sceneIndex, sceneName, imageName));
         SetSelectedTriggerIndex(imageName);
     }
 
     private void SetSelectedTriggerIndex(string trackedReferenceImageName)
     {
-        int index = trackedReferenceImageName == "Part 1" ? 0 :
-                trackedReferenceImageName == "Part 2" ? 1 : -1;
+        int index = trackedReferenceImageName == "Part1" ? 0 :
+                trackedReferenceImageName == "Part2" ? 1 : -1;
 
         if (index != -1)
         {
             SelectedTriggerIndexSetter.Instance.selectedTriggerIndex = index;
             Debug.Log($"SelectedTriggerIndexSetter.Instance.selectedTriggerIndex set to: {index}");
         }
+        else
+        {
+            Debug.Log($"index is: {index}");
+        }
     }
 
-    private string GetSceneName(int sceneNumber)
+    private string GetSceneName(int sceneIndex)
     {
-        switch(sceneNumber)
+        switch(sceneIndex)
         {
             case 2:
                 return "MainScene";
             case 3:
                 return "CharacterTour";
             default:
-                return null; // handle as needed later
+                return null;
         }
     }
 
@@ -195,18 +200,18 @@ public class Scanner : MonoBehaviour
 
     private void SetExitButtonActive()
     {
-        UIController.Instance.exitButton.gameObject.SetActive(true);
+        UIController.Instance.ExitButton.gameObject.SetActive(true);
     }
 
     private void SetRestartButtonActive()
     {
-        UIController.Instance.restartButton.gameObject.SetActive(true);
+        UIController.Instance.RestartButton.gameObject.SetActive(true);
     }
 
     private void SetRestartAndExitButtonInactive()
     {
-        UIController.Instance.restartButton.gameObject.SetActive(false);
-        UIController.Instance.exitButton.gameObject.SetActive(false);
+        UIController.Instance.RestartButton.gameObject.SetActive(false);
+        UIController.Instance.ExitButton.gameObject.SetActive(false);
     }
 
 

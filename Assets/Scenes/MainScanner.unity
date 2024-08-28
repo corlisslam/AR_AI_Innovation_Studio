@@ -503,6 +503,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed24abac9c8e54fd4b815a100f6df92f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LastAdditiveScene: 
+  LastTrackedReferenceImageName: 
 --- !u!1 &126298715
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,9 +819,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a10959d4209443f91496ef9e1aec38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasUIPrefab: {fileID: 3180651589512012025, guid: bb858fb646c52414f888cc53d9268d25,
+  CanvasUIPrefab: {fileID: 3180651589512012025, guid: bb858fb646c52414f888cc53d9268d25,
     type: 3}
-  restartButton: {fileID: 0}
+  ExitButton: {fileID: 0}
+  RestartButton: {fileID: 0}
 --- !u!1 &1393388656
 GameObject:
   m_ObjectHideFlags: 0
