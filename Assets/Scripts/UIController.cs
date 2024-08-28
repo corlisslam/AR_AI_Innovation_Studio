@@ -11,9 +11,7 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-
-    // Singleton instance
-    public static UIController Instance { get; set; }
+    public static UIController Instance { get; private set; }
 
     public GameObject canvasUIPrefab;
     private GameObject instantiatedCanvasUI;
@@ -82,24 +80,24 @@ public class UIController : MonoBehaviour
 
     private void RestartScan()
     {
-        Debug.Log($"lastAdditiveScene is: {Scanner.Instance.lastAdditiveScene}");
-        Debug.Log($"lastTrackedReferenceImageName is: {Scanner.Instance.lastTrackedReferenceImageName}");
+        Debug.Log($"LastAdditiveScene is: {Scanner.Instance.LastAdditiveScene}");
+        Debug.Log($"LastTrackedReferenceImageName is: {Scanner.Instance.LastTrackedReferenceImageName}");
 
-        if (Scanner.Instance.lastAdditiveScene == "CharacterTour")
+        if (Scanner.Instance.LastAdditiveScene == "CharacterTour")
         {
             StartCoroutine(Scanner.Instance.CleanupAndUnloadScene(3));
         }
 
-        else if (Scanner.Instance.lastAdditiveScene == "MainScene")
+        else if (Scanner.Instance.LastAdditiveScene == "MainScene")
         {
             StartCoroutine(Scanner.Instance.CleanupAndUnloadScene(2));
         }
 
-        Scanner.Instance.lastAdditiveScene = null;
-        Debug.Log("Set lastAdditiveScene to null.");
+        Scanner.Instance.LastAdditiveScene = null; // "rescanning" is restarting the AR session from fresh
+        Debug.Log("Set LastAdditiveScene to null.");
 
-        Scanner.Instance.lastTrackedReferenceImageName = null;
-        Debug.Log("Set lastTrackedReferenceImageName to null.");
+        Scanner.Instance.LastTrackedReferenceImageName = null;
+        Debug.Log("Set LastTrackedReferenceImageName to null.");
 
         StartCoroutine(Scanner.Instance.RestartARSession());
     }
