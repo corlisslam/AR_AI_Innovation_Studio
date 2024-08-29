@@ -89,7 +89,7 @@ public class UIController : MonoBehaviour
         {
             SetRestartButtonActive();
             SetExitButtonActive();
-            Debug.LogError("Unable to unload Last Additive Scene.");
+            Debug.LogError("Unable to unload Last Additive Scene, cannot restart scan.");
             yield break;
         }
 
@@ -137,7 +137,7 @@ public class UIController : MonoBehaviour
     private IEnumerator ExitGameCoroutine()
     {
         bool loadSuccess = false;
-        yield return StartCoroutine(LoadHomeScene(10f, success => loadSuccess = success));
+        yield return StartCoroutine(LoadHomeScene(success => loadSuccess = success));
 
         if (loadSuccess)
         {
@@ -163,7 +163,7 @@ public class UIController : MonoBehaviour
         else
         {
             SelectedTriggerIndexSetter.Instance.DestroySelectedTriggerIndex();
-            yield return null;
+            Debug.Log("Destroyed SelectedTriggerIndexSetter instance.");
         }
 
         LoaderUtility.Deinitialize();
@@ -176,28 +176,28 @@ public class UIController : MonoBehaviour
         Debug.Log("UIController destroyed.");
     }
 
-    private IEnumerator LoadHomeScene(float timeout, Action<bool> onComplete)
+    private IEnumerator LoadHomeScene(Action<bool> onComplete)
     {
         Debug.Log("Loading Home Scene...");
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("HomeScene");
 
         float elapsedTime = 0f;
-        bool success = true;
+        float timeout = 10f;
 
         while (!asyncLoad.isDone)
         {
             if (elapsedTime >= timeout)
             {
                 Debug.LogError("Scene loading timed out.");
-                success = false;
-                break;
+                onComplete?.Invoke(false);
+                yield break;
             }
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         
-        onComplete?.Invoke(success);
+        onComplete?.Invoke(true);
     }
 
     //private void HandleSceneLoadFailure()
