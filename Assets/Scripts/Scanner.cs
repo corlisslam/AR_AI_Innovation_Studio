@@ -216,11 +216,17 @@ public class Scanner : MonoBehaviour
     {
         SetRestartAndExitButtonInactive();
 
-        StartCoroutine(CleanupCharacterTourScene());
+        //if (buildIndex == -1)
+        //{
 
+        //}
+
+   
         Debug.Log("Unloading Scene: " + buildIndex);
         yield return SceneManager.UnloadSceneAsync(buildIndex);
         Debug.Log("Last additive scene unloaded");
+
+        StartCoroutine(CleanupCharacterTourScene());
     }
 
     // Need to do call this coroutine to clear npc character

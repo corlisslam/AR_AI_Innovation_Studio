@@ -125,7 +125,12 @@ public class UIController : MonoBehaviour
         bool loadSuccess = false;
         yield return StartCoroutine(LoadHomeScene(10f, success => loadSuccess = success));
 
-        if (!loadSuccess)
+        if (loadSuccess)
+        {
+            Debug.Log("Scene loaded successfully.");
+            PlayerPrefs.SetString("PlayerName", "Visitor");
+        }
+        else if (!loadSuccess)
         {
             Debug.LogError("Failed to load Home Scene. Exiting coroutine.");
             SetExitButtonActive();
@@ -177,13 +182,7 @@ public class UIController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        //yield return asyncLoad;  // Wait for the scene to fully load
-        if (success)
-        {
-            Debug.Log("Scene loaded successfully.");
-            PlayerPrefs.SetString("PlayerName", "Visitor");
-        }
-
+        
         onComplete?.Invoke(success);
     }
 
