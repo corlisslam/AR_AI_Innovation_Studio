@@ -75,9 +75,23 @@ public class UIController : MonoBehaviour
         Debug.Log($"LastAdditiveScene is: {Scanner.Instance.LastAdditiveScene}");
         Debug.Log($"LastTrackedReferenceImageName is: {Scanner.Instance.LastTrackedReferenceImageName}");
 
+        StartCoroutine(CallCleanupAndUnloadScene());
+    }
+
+    private IEnumerator CallCleanupAndUnloadScene()
+    {
         int lastAdditiveSceneIndex = GetLastAdditiveSceneIndex(Scanner.Instance.LastAdditiveScene);
 
-        StartCoroutine(Scanner.Instance.CleanupAndUnloadScene(lastAdditiveSceneIndex));
+        bool isUnloaded = false;
+        yield return StartCoroutine(Scanner.Instance.CleanupAndUnloadScene(lastAdditiveSceneIndex, success => isUnloaded = success));
+
+        if (isUnloaded == false)
+        {
+            SetRestartButtonActive();
+            SetExitButtonActive();
+            Debug.LogError("Unable to unload Last Additive Scene.");
+            yield break;
+        }
 
         Scanner.Instance.LastAdditiveScene = null; // "rescanning" is restarting the AR session from fresh
         Debug.Log("Set LastAdditiveScene to null.");
@@ -85,7 +99,7 @@ public class UIController : MonoBehaviour
         Scanner.Instance.LastTrackedReferenceImageName = null;
         Debug.Log("Set LastTrackedReferenceImageName to null.");
 
-        StartCoroutine(Scanner.Instance.RestartARSession());
+        yield return StartCoroutine(Scanner.Instance.RestartARSession());
     }
 
     private int GetLastAdditiveSceneIndex(string lastAdditiveScene)

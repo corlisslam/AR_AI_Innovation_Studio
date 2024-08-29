@@ -2,7 +2,7 @@
 ///     Scanner.cs is part of XR origin game object, allowing direct reference to XR origin game object components without the overhead of searching across the scene.
 ///     Plus it is inherently tied to the AR tracking functionality so keeping it with XR origin game object keeps related functionality grouped together.
 /// </summary>
-
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -75,20 +75,52 @@ public class Scanner : MonoBehaviour
             Debug.Log("Tracked image added: " + trackedImage.referenceImage.name);
             Debug.Log("Last Additive Scene: " + LastAdditiveScene);
 
-            if (ShouldUnloadLastScene(trackedImage))
-            {
-                StartCoroutine(CleanupAndUnloadScene(GetSceneIndex(LastTrackedReferenceImageName)));
-            }
+            StartCoroutine(HandleTrackedImagesChanged(trackedImage));
 
-            if (LastTrackedReferenceImageName != trackedImage.referenceImage.name)
-            {
-                LoadSceneBasedOnTrackedImage(trackedImage);
-                SetRestartButtonActive();
-            }
+            //if (ShouldUnloadLastScene(trackedImage))
+            //{
+            //    bool unloadSuccess = false;
+            //    StartCoroutine(CleanupAndUnloadScene(GetSceneIndex(LastTrackedReferenceImageName), success => unloadSuccess = success));
+            //    if (unloadSuccess == false)
+            //    {
+            //        break;
+            //    }
+            //}
+
+            //if (LastTrackedReferenceImageName != trackedImage.referenceImage.name)
+            //{
+            //    LoadSceneBasedOnTrackedImage(trackedImage);
+            //    SetRestartButtonActive();
+            //}
         }
     }
 
-    private bool ShouldUnloadLastScene(ARTrackedImage trackedImage)
+    private IEnumerator HandleTrackedImagesChanged(ARTrackedImage trackedImage)
+    {
+        if (ShouldUnloadLastScene(trackedImage))
+        {
+            bool isUnloaded = false;
+            yield return StartCoroutine(CleanupAndUnloadScene(GetSceneIndex(LastTrackedReferenceImageName), success => isUnloaded = success));
+
+            if (isUnloaded == false)
+            {
+                SetRestartButtonActive();
+                SetExitButtonActive();
+                Debug.LogError("Unable to unload Last Additive Scene.");
+                yield break;
+            }
+
+        }
+
+        if (LastTrackedReferenceImageName != trackedImage.referenceImage.name)
+        {
+            LoadSceneBasedOnTrackedImage(trackedImage);
+            SetRestartButtonActive();
+        }
+
+    }
+
+        private bool ShouldUnloadLastScene(ARTrackedImage trackedImage)
     {
         return !string.IsNullOrEmpty(LastAdditiveScene) &&
                SceneManager.GetSceneByName(LastAdditiveScene).isLoaded &&
@@ -212,21 +244,33 @@ public class Scanner : MonoBehaviour
     }
 
 
-    public IEnumerator CleanupAndUnloadScene(int buildIndex)
+    public IEnumerator CleanupAndUnloadScene(int buildIndex, Action<bool> onComplete)
     {
         SetRestartAndExitButtonInactive();
 
-        //if (buildIndex == -1)
-        //{
-
-        //}
-
-   
         Debug.Log("Unloading Scene: " + buildIndex);
-        yield return SceneManager.UnloadSceneAsync(buildIndex);
+        AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(buildIndex);
+
+        float elapsedTime = 0f;
+        float timeout = 10f;
+
+        while (!unloadOperation.isDone)
+        {
+            if (elapsedTime >= timeout)
+            {
+                Debug.LogError("Scene unloading timed out.");
+                onComplete?.Invoke(false);
+                yield break;
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        onComplete?.Invoke(true);
         Debug.Log("Last additive scene unloaded");
 
-        StartCoroutine(CleanupCharacterTourScene());
+        yield return StartCoroutine(CleanupCharacterTourScene());
     }
 
     // Need to do call this coroutine to clear npc character
