@@ -76,22 +76,6 @@ public class Scanner : MonoBehaviour
             Debug.Log("Last Additive Scene: " + LastAdditiveScene);
 
             StartCoroutine(HandleTrackedImagesChanged(trackedImage));
-
-            //if (ShouldUnloadLastScene(trackedImage))
-            //{
-            //    bool unloadSuccess = false;
-            //    StartCoroutine(CleanupAndUnloadScene(GetSceneIndex(LastTrackedReferenceImageName), success => unloadSuccess = success));
-            //    if (unloadSuccess == false)
-            //    {
-            //        break;
-            //    }
-            //}
-
-            //if (LastTrackedReferenceImageName != trackedImage.referenceImage.name)
-            //{
-            //    LoadSceneBasedOnTrackedImage(trackedImage);
-            //    SetRestartButtonActive();
-            //}
         }
     }
 
@@ -114,7 +98,25 @@ public class Scanner : MonoBehaviour
 
         if (LastTrackedReferenceImageName != trackedImage.referenceImage.name)
         {
-            LoadSceneBasedOnTrackedImage(trackedImage);
+            bool isLoaded = false;
+            yield return StartCoroutine(LoadSceneBasedOnTrackedImage(trackedImage, success => isLoaded = success));
+
+            if (isLoaded == false)
+            {
+                Debug.LogError("Load scene based on added new tracked image failed.");
+
+                LastAdditiveScene = null; // because you unloaded the last scene but can't load the new intended scene, need to act like you are starting from fresh
+                Debug.Log("Set LastAdditiveScene to null.");
+
+                LastTrackedReferenceImageName = null;
+                Debug.Log("Set LastTrackedReferenceImageName to null.");
+
+                Debug.Log("Calling RestartARSession Coroutine.");
+                yield return StartCoroutine(RestartARSession());
+
+                yield break;
+            }
+
             SetRestartButtonActive();
         }
 
@@ -127,7 +129,7 @@ public class Scanner : MonoBehaviour
                LastTrackedReferenceImageName != trackedImage.referenceImage.name;
     }
 
-    private void LoadSceneBasedOnTrackedImage(ARTrackedImage trackedImage)
+    private IEnumerator LoadSceneBasedOnTrackedImage(ARTrackedImage trackedImage, Action<bool> onComplete)
     {
         string imageName = trackedImage.referenceImage.name;
         Debug.Log($"lastTrackedReferenceImageName is: {LastTrackedReferenceImageName}");
@@ -138,7 +140,8 @@ public class Scanner : MonoBehaviour
         if (sceneIndex < 0)
         {
             Debug.LogWarning($"No scene associated with the tracked image: {imageName}");
-            return;
+            onComplete?.Invoke(false);
+            yield break;
         }
 
         string sceneName = GetSceneName(sceneIndex);
@@ -146,11 +149,24 @@ public class Scanner : MonoBehaviour
         if (string.IsNullOrEmpty(sceneName))
         {
             Debug.LogError($"Scene index {sceneIndex} does not correspond to a valid scene name.");
-            return;
+            onComplete?.Invoke(false);
+            yield break;
         }
 
-        StartCoroutine(LoadScene(sceneIndex, sceneName, imageName));
+        bool isLoaded = false;
+
         SetSelectedTriggerIndex(imageName);
+
+        yield return StartCoroutine(LoadScene(sceneIndex, sceneName, imageName, success => isLoaded = success));
+
+        if (isLoaded == false)
+        {
+            Debug.LogError("Unable to load new scene based on tracked image.");
+            onComplete?.Invoke(false);
+            yield break;
+        }
+
+        onComplete?.Invoke(true);
     }
 
     private void SetSelectedTriggerIndex(string trackedReferenceImageName)
@@ -196,10 +212,28 @@ public class Scanner : MonoBehaviour
         }
     }
 
-    private IEnumerator LoadScene(int buildIndex, string sceneName, string referenceImageName)
+    private IEnumerator LoadScene(int buildIndex, string sceneName, string referenceImageName, Action<bool> onComplete)
     {
         Debug.Log("Loading Scene: " + buildIndex);
-        yield return SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
+
+        float elapsedTime = 0f;
+        float timeout = 10f;
+
+        while (!loadOperation.isDone)
+        {
+            if (elapsedTime >= timeout)
+            {
+                Debug.LogError("Scene loading timed out.");
+                onComplete?.Invoke(false);
+                yield break;
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        onComplete?.Invoke(true);
         Debug.Log("Loaded Scene: " + buildIndex);
 
         LastAdditiveScene = sceneName;
@@ -209,7 +243,7 @@ public class Scanner : MonoBehaviour
         Debug.Log($"LastTrackedReferenceImageName updated to: {LastTrackedReferenceImageName}");
 
         Debug.Log("Calling RestartARSession Coroutine.");
-        StartCoroutine(RestartARSession());
+        yield return StartCoroutine(RestartARSession());
 
     }
 
