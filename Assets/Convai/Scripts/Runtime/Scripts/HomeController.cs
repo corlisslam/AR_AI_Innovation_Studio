@@ -9,32 +9,59 @@ using TMPro;
 
 public class HomeController : MonoBehaviour
 {
-    [SerializeField] private GameObject homePageButtonGameObject;
+    private GameObject homePageButtonGameObject;
     private Button homePageButton;
 
-    [SerializeField] private TMP_InputField homePageInputField;
+    public TMP_InputField homePageInputField;
     private string playerName;
 
-    private void Awake()
+    public void Awake()
     {
         InitializeComponents();
     }
 
-    private void InitializeComponents()
+    public void InitializeComponents()
     {
-        if (homePageButtonGameObject == null)
-        {
-            Debug.LogError("homePageButtonGameObject is not assigned!");
-        }
+        Transform homePageButtonTransform = transform.Find("HomePageButtonGameObject");
 
-        homePageButton = homePageButtonGameObject.GetComponent<Button>();
-        homePageButton.onClick.AddListener(OnScanImageButtonPressed);
+        if (homePageButtonTransform != null)
+        {
+            homePageButtonGameObject = homePageButtonTransform.gameObject;
+
+            homePageButton = homePageButtonGameObject.GetComponent<Button>();
+
+            if (homePageButton != null)
+            {
+                homePageButton.onClick.AddListener(OnScanImageButtonPressed);
+            }
+            else
+            {
+                Debug.LogError("Button component not found on HomePageButtonGameObject!");
+            }
+        }
+        else 
+        {
+            Debug.Log("HomePageButtonGameObject is not found.");
+        }
+    
+        //if (homePageButton == null)
+        //{
+        //    Debug.Log("homePageButton is not assigned!");
+        //}
+        //homePageButton.onClick.AddListener(OnScanImageButtonPressed);
     }
 
     public void OnScanImageButtonPressed()
     {
         Debug.Log("SCAN IMAGE pressed");
 
+        SetPlayerPref();
+
+        StartCoroutine(LoadScene());
+    }
+
+    public void SetPlayerPref()
+    {
         playerName = homePageInputField.text;
 
         if (!string.IsNullOrEmpty(playerName))
@@ -48,8 +75,6 @@ public class HomeController : MonoBehaviour
             PlayerPrefs.SetString("PlayerName", "Visitor");
             Debug.Log("Player name set to Visitor.");
         }
-
-        StartCoroutine(LoadScene());
     }
 
     public IEnumerator LoadScene()

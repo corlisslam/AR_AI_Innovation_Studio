@@ -1,0 +1,31 @@
+{
+    "name": "EditMode",
+    "rootNamespace": "",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "Unity.VSAttribution.Editor",
+        "Unity.XR.Interaction.Toolkit.Samples.StarterAssets",
+        "Unity.XR.Interaction.Toolkit.Samples.DeviceSimulator",
+        "Unity.XR.Interaction.Toolkit.Samples.ARStarterAssets.Editor",
+        "Unity.XR.Interaction.Toolkit.Samples.ARStarterAssets",
+        "Unity.XR.Interaction.Toolkit.Samples.StarterAssets.Editor",
+        "soupday.cc3_unity_tools.editor",
+        "soupday.cc3_unity_tools.runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

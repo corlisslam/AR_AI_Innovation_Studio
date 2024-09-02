@@ -98,8 +98,10 @@ public class Scanner : MonoBehaviour
 
         if (LastTrackedReferenceImageName != trackedImage.referenceImage.name)
         {
+            string imageName = trackedImage.referenceImage.name;
+
             bool isLoaded = false;
-            yield return StartCoroutine(LoadSceneBasedOnTrackedImage(trackedImage, success => isLoaded = success));
+            yield return StartCoroutine(LoadSceneBasedOnTrackedImage(imageName, success => isLoaded = success));
 
             if (isLoaded == false)
             {
@@ -129,9 +131,8 @@ public class Scanner : MonoBehaviour
                LastTrackedReferenceImageName != trackedImage.referenceImage.name;
     }
 
-    private IEnumerator LoadSceneBasedOnTrackedImage(ARTrackedImage trackedImage, Action<bool> onComplete)
+    public IEnumerator LoadSceneBasedOnTrackedImage(string imageName, Action<bool> onComplete)
     {
-        string imageName = trackedImage.referenceImage.name;
         Debug.Log($"lastTrackedReferenceImageName is: {LastTrackedReferenceImageName}");
         Debug.Log($"New tracked image's name is {imageName}, loading corresponding scene by calling LoadScene Coroutine");
 
@@ -157,7 +158,7 @@ public class Scanner : MonoBehaviour
 
         SetSelectedTriggerIndex(imageName);
 
-        yield return StartCoroutine(LoadScene(sceneIndex, sceneName, imageName, success => isLoaded = success));
+        yield return StartCoroutine(LoadScene(sceneIndex, sceneName, imageName, success => isLoaded = success, 0f));
 
         if (isLoaded == false)
         {
@@ -207,17 +208,19 @@ public class Scanner : MonoBehaviour
                 return 3;
             case "MarkerModels":
                 return 2;
+            case "GetInvalidIndex":
+                return 4;
             default:
-                return -1; // handle as needed later
+                return -1;
         }
     }
 
-    private IEnumerator LoadScene(int buildIndex, string sceneName, string referenceImageName, Action<bool> onComplete)
+    public IEnumerator LoadScene(int buildIndex, string sceneName, string referenceImageName, Action<bool> onComplete, float elapsedTime)
     {
         Debug.Log("Loading Scene: " + buildIndex);
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
 
-        float elapsedTime = 0f;
+        //float elapsedTime = 0f;
         float timeout = 10f;
 
         while (!loadOperation.isDone)

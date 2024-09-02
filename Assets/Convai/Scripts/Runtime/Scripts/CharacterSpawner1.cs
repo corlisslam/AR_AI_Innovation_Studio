@@ -138,14 +138,8 @@
 
 // working on this version rn
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.SceneManagement;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
-using UnityEngine.UI;
 
 public class CharacterSpawner1 : MonoBehaviour
 {
